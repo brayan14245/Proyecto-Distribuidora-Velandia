@@ -30,9 +30,7 @@ function App() {
       });
   };
 
-  useEffect(() => {
-    cargarProductos();
-
+  const cargarCategorias = () => {
     obtenerCategorias()
       .then((data) => {
         setCategorias(data);
@@ -40,6 +38,11 @@ function App() {
       .catch((error) => {
         console.error('Error al obtener las categorías:', error);
       });
+  };
+
+  useEffect(() => {
+    cargarProductos();
+    cargarCategorias();
   }, []);
 
   const productosFiltrados = categoriaActiva === "Inicio" 
@@ -103,6 +106,7 @@ function App() {
             productos={productos}
             categorias={categorias}
             onActualizarProductos={cargarProductos}
+            onActualizarCategorias={cargarCategorias}
             cargando={cargando}
           />
         )}
