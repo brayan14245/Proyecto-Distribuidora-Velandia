@@ -1,4 +1,4 @@
-const API_URL = 'https://6a9439890e895b145e5f552f.mockapi.io/categoria';
+const API_URL = 'https://6aa6a919d7765db985078096.mockapi.io/categoria';
 
 // Obtener todas las categorías
 export const obtenerCategorias = () => {

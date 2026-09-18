@@ -10,6 +10,11 @@ export function GestionCategorias({ categorias = [], onActualizarCategorias }) {
   const [categoriaAEditar, setCategoriaAEditar] = useState(null);
   const [guardando, setGuardando] = useState(false);
 
+  const categoriasValidas = (categorias || []).filter((categoria) => {
+    const nombreCategoria = (categoria?.nombre || categoria?.label || '').toString().trim();
+    return nombreCategoria !== '';
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const nombreLimpio = nombre.trim();
@@ -106,26 +111,24 @@ export function GestionCategorias({ categorias = [], onActualizarCategorias }) {
         </div>
       </form>
 
-      {categorias.length > 0 && (
+      {categoriasValidas.length > 0 && (
         <div className="category-admin-list">
-          {categorias
-            .filter((categoria) => (categoria.nombre || categoria.label) !== 'Inicio')
-            .map((categoria) => {
-              const nombreCategoria = categoria.nombre || categoria.label;
-              return (
-                <div className="category-admin-item" key={categoria.id}>
-                  <span>{nombreCategoria}</span>
-                  <div className="td-actions">
-                    <button className="btn-action-edit" onClick={() => handleEditar(categoria)}>
-                      ✏️ Editar
-                    </button>
-                    <button className="btn-action-delete" onClick={() => handleEliminar(categoria.id)}>
-                      🗑️ Eliminar
-                    </button>
-                  </div>
+          {categoriasValidas.map((categoria) => {
+            const nombreCategoria = categoria.nombre || categoria.label;
+            return (
+              <div className="category-admin-item" key={categoria.id}>
+                <span>{nombreCategoria}</span>
+                <div className="td-actions">
+                  <button className="btn-action-edit" onClick={() => handleEditar(categoria)}>
+                    ✏️ Editar
+                  </button>
+                  <button className="btn-action-delete" onClick={() => handleEliminar(categoria.id)}>
+                    🗑️ Eliminar
+                  </button>
                 </div>
-              );
-            })}
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

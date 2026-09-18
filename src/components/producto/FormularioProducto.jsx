@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
 
 export function FormularioProducto({ productoAEditar, categorias = [], onGuardar, onCancelar, guardando }) {
+  const categoriasValidas = (categorias || []).filter((categoria) => {
+    const nombreCategoria = (categoria?.nombre || categoria?.label || '').toString().trim();
+    return nombreCategoria !== '' && nombreCategoria.toLowerCase() !== 'inicio';
+  });
+
   const initialFormState = {
     nombre: '',
     descripcion: '',
     precio: '',
-    categoria: categorias.length > 0 ? (categorias[0].nombre || categorias[0].label) : 'Hamburguesas',
+    categoria: categoriasValidas.length > 0 ? (categoriasValidas[0].nombre || categoriasValidas[0].label) : 'Hamburguesas',
     imagen: '',
     tag: ''
   };
@@ -18,7 +23,7 @@ export function FormularioProducto({ productoAEditar, categorias = [], onGuardar
         nombre: productoAEditar.nombre || '',
         descripcion: productoAEditar.descripcion || '',
         precio: productoAEditar.precio || '',
-        categoria: productoAEditar.categoria || (categorias[0]?.nombre || 'Hamburguesas'),
+        categoria: productoAEditar.categoria || (categoriasValidas[0]?.nombre || categoriasValidas[0]?.label || 'Hamburguesas'),
         imagen: productoAEditar.imagen || '',
         tag: productoAEditar.tag || ''
       });
@@ -99,13 +104,11 @@ export function FormularioProducto({ productoAEditar, categorias = [], onGuardar
               value={formData.categoria}
               onChange={handleChange}
             >
-              {categorias.length > 0 ? (
-                categorias
-                  .filter(c => (c.nombre || c.label) !== "Inicio")
-                  .map(c => {
-                    const val = c.nombre || c.label;
-                    return <option key={c.id} value={val}>{val}</option>;
-                  })
+              {categoriasValidas.length > 0 ? (
+                categoriasValidas.map(c => {
+                  const val = c.nombre || c.label;
+                  return <option key={c.id} value={val}>{val}</option>;
+                })
               ) : (
                 <>
                   <option value="Hamburguesas">Hamburguesas</option>
