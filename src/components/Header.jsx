@@ -1,4 +1,5 @@
 import { Menu } from "./Menu";
+import logoDV from '../assets/LogoDV.png';
 
 export function Header({ 
   categorias = [], 
@@ -14,8 +15,7 @@ export function Header({
             <div className="header-inner">
                 {/* Brand / Logo */}
                 <div className="header-brand" onClick={() => onCambiarVista && onCambiarVista("catalogo")}>
-                    <div className="brand-logo">⚡</div>
-                    <span className="brand-name">Quick<span className="brand-highlight">Order</span></span>
+                    <img src={logoDV} alt="Distribuidora Velandia" className="brand-logo" />
                 </div>
                 
                 {/* Categories Navigation */}

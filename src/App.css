@@ -11,17 +11,17 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-color);
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(142, 121, 239, 0.15);
+  box-shadow: 0 10px 24px -18px rgba(72, 54, 124, 0.28);
 }
 
 .header-inner {
   max-width: 1240px;
   margin: 0 auto;
-  padding: 14px 24px;
+  padding: 16px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -32,32 +32,43 @@
 .header-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   cursor: pointer;
 }
 
-.brand-logo {
-  width: 38px;
-  height: 38px;
-  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-  color: #ffffff;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  box-shadow: 0 4px 10px rgba(2, 132, 199, 0.25);
+img.brand-logo {
+  width: 72px;
+  height: 72px;
+  display: block;
+  object-fit: contain;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: 0 12px 24px -16px rgba(92, 79, 167, 0.55);
+  border: 3px solid rgba(17, 17, 17, 0.75);
+  padding: 2px;
+}
+
+.header-brand .brand-logo,
+.footer-brand .brand-logo {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
 }
 
 .brand-name {
-  font-size: 1.35rem;
+  font-size: 1.1rem;
+  line-height: 1;
   font-weight: 800;
-  letter-spacing: -0.03em;
-  color: #0f172a;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #1b1b22;
 }
 
 .brand-highlight {
-  color: #0284c7;
+  background: linear-gradient(135deg, #6a4bd8 0%, #5ad2d2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Nav Categories Pills */
@@ -75,13 +86,13 @@
 }
 
 .category-pill {
-  background-color: #f1f5f9;
-  color: #475569;
-  border: 1px solid transparent;
+  background: rgba(142, 121, 239, 0.08);
+  color: #4a4660;
+  border: 1px solid rgba(142, 121, 239, 0.12);
   font-family: var(--font-family);
   font-size: 0.9rem;
-  font-weight: 600;
-  padding: 8px 18px;
+  font-weight: 700;
+  padding: 9px 18px;
   border-radius: 9999px;
   cursor: pointer;
   white-space: nowrap;
@@ -89,14 +100,15 @@
 }
 
 .category-pill:hover {
-  background-color: #e2e8f0;
-  color: #0f172a;
+  background: rgba(142, 121, 239, 0.13);
+  color: #241f34;
+  transform: translateY(-1px);
 }
 
 .category-pill.active {
-  background-color: #0f172a;
+  background: linear-gradient(135deg, #7e6bdb 0%, #6ad0d6 100%);
   color: #ffffff;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+  box-shadow: 0 10px 18px -12px rgba(92, 79, 167, 0.66);
 }
 
 /* Header Cart Action */
@@ -109,13 +121,13 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: #ffffff;
-  border: 1.5px solid #e2e8f0;
-  color: #0f172a;
+  background: linear-gradient(135deg, #ffffff 0%, #f7f0ff 100%);
+  border: 1.5px solid rgba(126, 107, 219, 0.18);
+  color: #2b233d;
   font-family: var(--font-family);
   font-size: 0.9rem;
-  font-weight: 600;
-  padding: 8px 16px;
+  font-weight: 700;
+  padding: 9px 16px;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -123,14 +135,14 @@
 }
 
 .cart-button:hover {
-  border-color: #0284c7;
-  color: #0284c7;
+  border-color: rgba(126, 107, 219, 0.35);
+  color: #453a74;
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
 
 .cart-badge {
-  background-color: #0284c7;
+  background: linear-gradient(135deg, #7e6bdb 0%, #5eced5 100%);
   color: #ffffff;
   font-size: 0.75rem;
   font-weight: 700;
@@ -151,9 +163,9 @@
 
 /* Hero Banner */
 .hero-banner {
-  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
-  border: 1px solid #e2e8f0;
-  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(142, 121, 239, 0.12) 0%, rgba(110, 202, 209, 0.12) 38%, rgba(247, 191, 208, 0.18) 100%);
+  border: 1px solid rgba(142, 121, 239, 0.18);
+  border-radius: 28px;
   padding: 36px 32px;
   display: flex;
   flex-direction: column;
@@ -163,24 +175,26 @@
 }
 
 .banner-badge {
-  background-color: #fef3c7;
-  color: #92400e;
+  background: rgba(243, 210, 140, 0.5);
+  color: #7a4f17;
   font-size: 0.8rem;
-  font-weight: 700;
-  padding: 4px 12px;
+  font-weight: 800;
+  padding: 6px 12px;
   border-radius: 9999px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .banner-title {
-  font-size: 2rem;
-  font-weight: 800;
-  color: #0f172a;
-  letter-spacing: -0.02em;
+  font-size: 2.1rem;
+  font-weight: 900;
+  color: #241f34;
+  letter-spacing: -0.04em;
 }
 
 .banner-subtitle {
   font-size: 1rem;
-  color: var(--text-muted);
+  color: #5c5470;
   max-width: 600px;
 }
 
@@ -215,9 +229,9 @@
 
 /* Product Card */
 .product-card {
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
+  background: linear-gradient(180deg, #ffffff 0%, #fffafc 100%);
+  border: 1px solid rgba(142, 121, 239, 0.14);
+  border-radius: 18px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -228,7 +242,7 @@
 .product-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
-  border-color: #cbd5e1;
+  border-color: rgba(126, 107, 219, 0.3);
 }
 
 /* Card Image & Badge */
@@ -286,14 +300,14 @@
 
 .product-title {
   font-size: 1.1rem;
-  font-weight: 700;
-  color: #0f172a;
+  font-weight: 800;
+  color: #231d31;
   line-height: 1.35;
 }
 
 .product-description {
   font-size: 0.85rem;
-  color: var(--text-muted);
+  color: #645d76;
   line-height: 1.45;
   margin-bottom: 8px;
   flex: 1;
@@ -306,7 +320,7 @@
   justify-content: space-between;
   margin-top: auto;
   padding-top: 14px;
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid rgba(142, 121, 239, 0.1);
   gap: 12px;
 }
 
@@ -317,16 +331,16 @@
 
 .price-label {
   font-size: 0.7rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  color: #94a3b8;
-  letter-spacing: 0.04em;
+  color: #9588ac;
+  letter-spacing: 0.05em;
 }
 
 .product-price {
   font-size: 1.25rem;
-  font-weight: 800;
-  color: #0f172a;
+  font-weight: 900;
+  color: #1f1b2d;
   letter-spacing: -0.01em;
 }
 
@@ -334,12 +348,12 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  background-color: #0f172a;
+  background: linear-gradient(135deg, #7e6bdb 0%, #62c8d0 100%);
   color: #ffffff;
   border: none;
   font-family: var(--font-family);
   font-size: 0.875rem;
-  font-weight: 700;
+  font-weight: 800;
   padding: 10px 16px;
   border-radius: 10px;
   cursor: pointer;
@@ -348,9 +362,9 @@
 }
 
 .btn-add-order:hover {
-  background-color: #0284c7;
+  background: linear-gradient(135deg, #6954d4 0%, #58b8c4 100%);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+  box-shadow: 0 10px 18px -12px rgba(92, 79, 167, 0.68);
 }
 
 .btn-add-order:active {
@@ -365,8 +379,8 @@
 /* Footer Styling (inline in App.jsx) */
 .app-footer {
   margin-top: auto;
-  background-color: #ffffff;
-  border-top: 1px solid var(--border-color);
+  background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(246,240,255,0.92) 100%);
+  border-top: 1px solid rgba(142, 121, 239, 0.12);
   width: 100%;
 }
 
@@ -390,12 +404,12 @@
 .footer-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .footer-description {
   font-size: 0.9rem;
-  color: var(--text-muted);
+  color: #5f5971;
   line-height: 1.5;
 }
 
