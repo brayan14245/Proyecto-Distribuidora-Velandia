@@ -1287,4 +1287,343 @@ img.brand-logo {
   box-shadow: var(--shadow-md);
 }
 
+/* Beauty retail theme */
+.header-navbar {
+  background: rgba(255, 250, 247, 0.92);
+  border-bottom-color: rgba(145, 61, 85, 0.15);
+  box-shadow: 0 10px 24px -18px rgba(91, 56, 57, 0.35);
+}
+
+.header-inner {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+img.brand-logo {
+  border-color: rgba(145, 61, 85, 0.55);
+  box-shadow: 0 12px 24px -16px rgba(145, 61, 85, 0.55);
+}
+
+.brand-name,
+.catalog-title,
+.banner-title,
+.gestion-header h2,
+.form-title,
+.table-title,
+.cart-header h3,
+.modal-header h3 {
+  font-family: var(--font-display);
+}
+
+.brand-name {
+  color: #302528;
+  letter-spacing: 0.12em;
+}
+
+.brand-highlight {
+  background: var(--brand-gradient);
+}
+
+.nav-categories {
+  gap: 6px;
+}
+
+.category-pill {
+  background: rgba(194, 108, 120, 0.07);
+  color: #6e4a50;
+  border-color: rgba(145, 61, 85, 0.13);
+  border-radius: 10px;
+}
+
+.category-pill:hover {
+  background: rgba(194, 108, 120, 0.14);
+  color: #87354b;
+}
+
+.category-pill.active,
+.view-btn.active,
+.btn-add-order,
+.btn-confirm,
+.btn-save {
+  background: var(--brand-gradient);
+}
+
+.user-button,
+.cart-button {
+  background: #fffaf7;
+  border-color: rgba(145, 61, 85, 0.2);
+  color: #57353e;
+}
+
+.user-button:hover,
+.cart-button:hover {
+  border-color: rgba(145, 61, 85, 0.45);
+  color: #87354b;
+}
+
+.cart-badge,
+.view-badge {
+  background: #d0a15c;
+  color: #fffaf5;
+}
+
+.app-container {
+  padding-top: 38px;
+}
+
+.hero-banner {
+  border-radius: 12px;
+  border-color: rgba(145, 61, 85, 0.22);
+  box-shadow: var(--shadow-md);
+}
+
+.hero-slider {
+  min-height: 390px;
+}
+
+.hero-slider::before {
+  background: linear-gradient(90deg, rgba(48, 37, 40, 0.76) 0%, rgba(48, 37, 40, 0.28) 52%, rgba(48, 37, 40, 0.08) 100%);
+}
+
+.banner-badge {
+  background: rgba(236, 194, 143, 0.94);
+  color: #684528;
+  border-radius: 6px;
+}
+
+.banner-title {
+  font-size: clamp(2rem, 4vw, 3.35rem);
+  letter-spacing: -0.02em;
+}
+
+.cta-primary {
+  background: #fffaf7;
+  color: #87354b;
+  border-radius: 8px;
+  box-shadow: 0 12px 22px -14px rgba(48, 37, 40, 0.9);
+}
+
+.catalog-header {
+  border-bottom-color: rgba(145, 61, 85, 0.18);
+}
+
+.catalog-title {
+  color: #4f3038;
+  font-size: 1.7rem;
+}
+
+.product-card {
+  background: #fffdfb;
+  border-color: rgba(145, 61, 85, 0.13);
+  border-radius: 12px;
+}
+
+.product-card::before {
+  background: linear-gradient(90deg, #913d55 0%, #d18b8c 55%, #d0a15c 100%);
+}
+
+.product-card:hover {
+  border-color: rgba(145, 61, 85, 0.34);
+}
+
+.product-image-container {
+  background: linear-gradient(145deg, #f4e7e1, #ead4d0);
+}
+
+.product-tag {
+  background: rgba(145, 61, 85, 0.94);
+  border-radius: 6px;
+  box-shadow: 0 10px 18px -12px rgba(91, 56, 57, 0.85);
+}
+
+.product-title,
+.product-price {
+  color: #3f2b30;
+}
+
+.product-description {
+  color: #77686a;
+}
+
+.product-footer {
+  border-top-color: rgba(145, 61, 85, 0.12);
+}
+
+.quantity-picker {
+  border-color: rgba(145, 61, 85, 0.2);
+  background: #fbf1ed;
+}
+
+.qty-btn {
+  color: #87354b;
+}
+
+.btn-add-order:hover,
+.btn-confirm:hover,
+.btn-save:hover {
+  background: linear-gradient(135deg, #87354b 0%, #b85c6c 58%, #b88749 100%);
+}
+
+.app-footer {
+  background: linear-gradient(180deg, rgba(255, 250, 247, 0.96) 0%, rgba(244, 230, 224, 0.96) 100%);
+  border-top-color: rgba(145, 61, 85, 0.15);
+}
+
+.footer-heading,
+.footer-info,
+.footer-description {
+  color: #5f4a4e;
+}
+
+.footer-list button:hover {
+  color: #a2465d;
+}
+
+.view-nav {
+  background: #f1e5e0;
+}
+
+.view-btn {
+  color: #806b6d;
+}
+
+.view-btn:hover {
+  color: #57353e;
+}
+
+.view-btn.active {
+  color: #fffaf7;
+}
+
+.gestion-header h2,
+.form-title,
+.table-title {
+  color: #4f3038;
+}
+
+.gestion-header p,
+.form-subtitle {
+  color: #77686a;
+}
+
+.card-form-container,
+.admin-table-container {
+  background: #fffdfb;
+  border-color: #eadbd5;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.form-header {
+  border-bottom-color: #f0dfda;
+}
+
+.form-label {
+  color: #65464d;
+}
+
+.form-input,
+.user-form input {
+  background: #fdf7f4;
+  border-color: #e5d3ce;
+  color: #3f2b30;
+  border-radius: 8px;
+}
+
+.form-input:focus,
+.user-form input:focus {
+  border-color: #a2465d;
+  background: #fffdfb;
+  box-shadow: 0 0 0 3px rgba(162, 70, 93, 0.13);
+}
+
+.btn-cancel,
+.btn-action-edit {
+  background: #f5e9e5;
+  color: #76565c;
+  border-color: #dfc9c3;
+}
+
+.btn-cancel:hover,
+.btn-action-edit:hover {
+  background: #ead8d2;
+  border-color: #a2465d;
+  color: #87354b;
+}
+
+.admin-table th {
+  background: #f7ece8;
+  color: #694d52;
+  border-bottom-color: #ead5cf;
+}
+
+.admin-table td {
+  border-bottom-color: #f1e4df;
+}
+
+.admin-table tr:hover td {
+  background: #fdf7f4;
+}
+
+.td-name strong,
+.td-price {
+  color: #4f3038;
+}
+
+.badge-category {
+  background: #f4dfe0;
+  color: #913d55;
+}
+
+.badge-tag,
+.table-count {
+  background: #f5e7c9;
+  color: #85602d;
+}
+
+.empty-admin-list {
+  background: #fdf7f4;
+  border-color: #dfc9c3;
+}
+
+.cart-overlay,
+.modal-backdrop {
+  background: rgba(48, 37, 40, 0.52);
+}
+
+.cart-panel,
+.modal-card {
+  background: #fffaf7;
+}
+
+.cart-close {
+  background: #f3e5e0;
+  color: #6e4a50;
+}
+
+.cart-item {
+  border-color: rgba(145, 61, 85, 0.14);
+  background: #fdf4f1;
+}
+
+.cart-item strong,
+.cart-total-row strong {
+  color: #4f3038;
+}
+
+.cart-footer {
+  border-top-color: #eadbd5;
+}
+
+.stock-pill {
+  background: rgba(87, 133, 103, 0.13);
+  color: #3e7050;
+}
+
+.stock-pill.out,
+.badge-stock.empty {
+  background: rgba(174, 63, 77, 0.12);
+  color: #a13d4d;
+}
+
 
