@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import { Header } from './components/Header';
-import { Banner } from './components/Banner';
 import { Product } from './components/Product';
 import { Footer } from './components/Footer';
 import { GestionProductos } from './components/producto/GestionProductos';
@@ -11,7 +10,6 @@ import { LoginAdmin } from './components/usuario/LoginAdmin';
 import { HistorialPedidos } from './components/usuario/HistorialPedidos';
 import { obtenerProductos, actualizarProducto } from './services/productService';
 import { obtenerCategorias } from './services/categoryService';
-import { obtenerBanners } from './services/bannerService';
 import { obtenerUsuarios, crearUsuario as crearUsuarioApi } from './services/userService';
 import { autenticarUsuario } from './services/userService';
 import { guardarSesion, obtenerSesion, cerrarSesion } from './services/userService';
@@ -37,7 +35,6 @@ function App() {
 
   const [productos, setProductos] = useState([]);
   const [categorias, setCategorias] = useState([]);
-  const [banners, setBanners] = useState([]);
   const [ordenes, setOrdenes] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
   const [cargando, setCargando] = useState(true);
@@ -66,15 +63,6 @@ function App() {
       });
   };
 
-  const cargarBanners = async () => {
-    try {
-      const data = await obtenerBanners();
-      setBanners(Array.isArray(data) ? data : []);
-    } catch (error) {
-      console.error('Error al obtener los banners:', error);
-    }
-  };
-
   const cargarOrdenes = async () => {
     try {
       const data = await obtenerOrdenes();
@@ -97,7 +85,6 @@ function App() {
     setUsuarioActual(obtenerSesion());
     cargarProductos();
     cargarCategorias();
-    cargarBanners();
     cargarOrdenes();
     cargarUsuarios();
     setCarrito(obtenerCarrito());
@@ -298,8 +285,6 @@ function App() {
       <main className="app-container">
         {vista === 'catalogo' ? (
           <>
-            <Banner banners={banners} />
-
             <section className="catalog-header">
               <div>
                 <h2 className="catalog-title">
@@ -335,12 +320,10 @@ function App() {
           <GestionProductos
             productos={productos}
             categorias={categorias}
-            banners={banners}
             ordenes={ordenes}
             usuarios={usuarios}
             onActualizarProductos={cargarProductos}
             onActualizarCategorias={cargarCategorias}
-            onActualizarBanners={cargarBanners}
             onActualizarOrdenes={cargarOrdenes}
             onActualizarUsuarios={cargarUsuarios}
             cargando={cargando}

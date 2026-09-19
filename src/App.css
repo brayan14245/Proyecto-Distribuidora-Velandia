@@ -226,151 +226,6 @@ img.brand-logo {
   text-transform: uppercase;
 }
 
-/* Hero Banner */
-.hero-banner {
-  position: relative;
-  overflow: hidden;
-  border-radius: 28px;
-  border: 1px solid rgba(142, 121, 239, 0.18);
-  box-shadow: var(--shadow-sm);
-}
-
-.hero-slider {
-  min-height: 360px;
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  padding: 36px 32px 72px;
-  background-size: cover;
-  background-position: center;
-  transition: background-image 0.5s ease-in-out;
-}
-
-.hero-slider::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(19, 17, 27, 0.7) 0%, rgba(19, 17, 27, 0.2) 45%, rgba(19, 17, 27, 0.1) 100%);
-}
-
-.slider-content,
-.slider-dots {
-  position: relative;
-  z-index: 1;
-}
-
-.slider-content {
-  max-width: 560px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.banner-badge {
-  background: rgba(243, 210, 140, 0.88);
-  color: #7a4f17;
-  font-size: 0.8rem;
-  font-weight: 800;
-  padding: 6px 12px;
-  border-radius: 9999px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  width: fit-content;
-}
-
-.banner-title {
-  font-size: 2.3rem;
-  font-weight: 900;
-  color: #ffffff;
-  letter-spacing: -0.04em;
-  line-height: 1.08;
-}
-
-.banner-subtitle {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.9);
-  max-width: 560px;
-}
-
-.slider-actions {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: 6px;
-}
-
-.cta-primary {
-  border: none;
-  background: linear-gradient(135deg, #7e6bdb 0%, #62c8d0 100%);
-  color: #ffffff;
-  font-family: var(--font-family);
-  font-size: 0.9rem;
-  font-weight: 800;
-  padding: 11px 18px;
-  border-radius: 999px;
-  cursor: pointer;
-  box-shadow: 0 12px 22px -14px rgba(92, 79, 167, 0.9);
-}
-
-.cta-accent {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.9);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.slider-dots {
-  position: absolute;
-  left: 50%;
-  bottom: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  min-height: 36px;
-  transform: translateX(-50%);
-}
-
-.dot {
-  width: 32px;
-  height: 32px;
-  display: grid;
-  place-items: center;
-  position: relative;
-  padding: 0;
-  border-radius: 50%;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.dot::before {
-  content: "";
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.65);
-  transition: all 0.25s ease;
-}
-
-.dot:hover::before {
-  background: #ffffff;
-  transform: scale(1.15);
-}
-
-.dot.active {
-  width: 32px;
-  height: 32px;
-}
-
-.dot.active::before {
-  width: 22px;
-  border-radius: 999px;
-  background: #ffffff;
-}
-
 /* Catalog Header Section */
 .catalog-header {
   display: flex;
@@ -721,19 +576,6 @@ img.brand-logo {
     justify-content: center;
   }
 
-  .banner-title {
-    font-size: 1.5rem;
-  }
-
-  .hero-slider {
-    min-height: 330px;
-    padding: 28px 20px 68px;
-  }
-
-  .slider-dots {
-    bottom: 10px;
-  }
-
   .product-grid {
     grid-template-columns: 1fr;
   }
@@ -862,51 +704,6 @@ img.brand-logo {
   border-radius: 18px;
   padding: 28px;
   box-shadow: var(--shadow-sm);
-}
-
-.banner-admin-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 24px;
-}
-
-.banner-admin-item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 10px;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  background: #f8fafc;
-}
-
-.banner-admin-image {
-  width: 96px;
-  height: 58px;
-  object-fit: cover;
-  border-radius: 8px;
-  flex-shrink: 0;
-}
-
-.banner-admin-info {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 3px;
-  min-width: 0;
-}
-
-.banner-admin-info strong {
-  color: #0f172a;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.banner-admin-info span {
-  color: var(--text-muted);
-  font-size: 0.8rem;
 }
 
 .form-header {
@@ -1456,7 +1253,6 @@ img.brand-logo {
 
 .brand-name,
 .catalog-title,
-.banner-title,
 .gestion-header h2,
 .form-title,
 .table-title,
@@ -1519,38 +1315,6 @@ img.brand-logo {
 
 .app-container {
   padding-top: 38px;
-}
-
-.hero-banner {
-  border-radius: 28px;
-  border-color: rgba(142, 121, 239, 0.18);
-  box-shadow: var(--shadow-sm);
-}
-
-.hero-slider {
-  min-height: 390px;
-}
-
-.hero-slider::before {
-  background: linear-gradient(90deg, rgba(19, 17, 27, 0.7) 0%, rgba(19, 17, 27, 0.2) 45%, rgba(19, 17, 27, 0.1) 100%);
-}
-
-.banner-badge {
-  background: rgba(243, 210, 140, 0.88);
-  color: #7a4f17;
-  border-radius: 9999px;
-}
-
-.banner-title {
-  font-size: clamp(2rem, 4vw, 3.35rem);
-  letter-spacing: -0.02em;
-}
-
-.cta-primary {
-  background: linear-gradient(135deg, #7e6bdb 0%, #62c8d0 100%);
-  color: #ffffff;
-  border-radius: 999px;
-  box-shadow: 0 12px 22px -14px rgba(92, 79, 167, 0.9);
 }
 
 .catalog-header {
