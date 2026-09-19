@@ -5,29 +5,43 @@ import { Banner } from './components/Banner';
 import { Product } from './components/Product';
 import { Footer } from './components/Footer';
 import { GestionProductos } from './components/producto/GestionProductos';
-import { obtenerProductos } from './services/productService';
+import { Carrito } from './components/Carrito';
+import { FormularioUsuario } from './components/usuario/FormularioUsuario';
+import { obtenerProductos, actualizarProducto } from './services/productService';
 import { obtenerCategorias } from './services/categoryService';
+import { obtenerUsuarios as obtenerUsuariosApi } from './services/userService';
+import { crearUsuario as crearUsuarioApi } from './services/userService';
+import { obtenerCarrito } from './services/storeService';
+import { guardarCarrito } from './services/storeService';
+import { agregarAlCarrito } from './services/storeService';
+import { quitarDelCarrito } from './services/storeService';
+import { calcularTotalCarrito } from './services/storeService';
+import { descontarStockProductos } from './services/storeService';
 
 function App() {
-  const [categoriaActiva, setCategoriaActiva] = useState("Inicio");
-  const [cartCount, setCartCount] = useState(0);
-  const [vista, setVista] = useState("catalogo"); // "catalogo" | "admin"
+  const [categoriaActiva, setCategoriaActiva] = useState('Inicio');
+  const [vista, setVista] = useState('catalogo');
+  const [carrito, setCarrito] = useState([]);
+  const [mostrarCarrito, setMostrarCarrito] = useState(false);
+  const [mostrarFormularioUsuario, setMostrarFormularioUsuario] = useState(false);
+  const [usuarioActual, setUsuarioActual] = useState(null);
 
   const [productos, setProductos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [cargando, setCargando] = useState(true);
 
-  const cargarProductos = () => {
+  const cargarProductos = async () => {
     setCargando(true);
-    obtenerProductos()
-      .then((data) => {
-        setProductos(data);
-        setCargando(false);
-      })
-      .catch((error) => {
-        console.error('Error al obtener los productos:', error);
-        setCargando(false);
-      });
+    try {
+      const data = await obtenerProductos();
+      setProductos(data);
+      return data;
+    } catch (error) {
+      console.error('Error al obtener los productos:', error);
+      return [];
+    } finally {
+      setCargando(false);
+    }
   };
 
   const cargarCategorias = () => {
@@ -41,46 +55,157 @@ function App() {
   };
 
   useEffect(() => {
+    const cargarUsuarioActual = async () => {
+      try {
+        const usuarios = await obtenerUsuariosApi();
+        if (usuarios.length > 0) {
+          setUsuarioActual(usuarios[usuarios.length - 1]);
+        }
+      } catch (error) {
+        console.error('Error al cargar usuarios desde MockAPI:', error);
+      }
+    };
+
     cargarProductos();
     cargarCategorias();
+    setCarrito(obtenerCarrito());
+    cargarUsuarioActual();
   }, []);
 
-  const productosFiltrados = categoriaActiva === "Inicio" 
-    ? productos 
-    : productos.filter(p => p.categoria && p.categoria.toLowerCase() === categoriaActiva.toLowerCase());
+  useEffect(() => {
+    guardarCarrito(carrito);
+  }, [carrito]);
 
-  const handleAddToCart = () => {
-    setCartCount(prev => prev + 1);
+  const productosFiltrados = categoriaActiva === 'Inicio'
+    ? productos
+    : productos.filter((p) => p.categoria && p.categoria.toLowerCase() === categoriaActiva.toLowerCase());
+
+  const handleAddToCart = (producto, cantidad = 1) => {
+    if (!producto) return;
+
+    const cantidadSolicitada = Number(cantidad) || 1;
+    const stockDisponible = Number(producto.stock ?? 0);
+    const yaEnCarrito = carrito.find((item) => item.id === producto.id);
+    const cantidadActual = yaEnCarrito ? yaEnCarrito.cantidad : 0;
+
+    if (stockDisponible > 0 && cantidadActual + cantidadSolicitada > stockDisponible) {
+      alert('No hay suficiente stock para esa cantidad.');
+      return;
+    }
+
+    setCarrito((prev) => agregarAlCarrito(prev, producto, stockDisponible, cantidadSolicitada));
+  };
+
+  const handleRemoveFromCart = (productoId) => {
+    setCarrito((prev) => quitarDelCarrito(prev, productoId));
+  };
+
+  const cartCount = carrito.reduce((total, item) => total + Number(item.cantidad || 0), 0);
+  const totalPedido = calcularTotalCarrito(carrito);
+
+  const confirmarPedido = async () => {
+    if (!usuarioActual) {
+      setMostrarFormularioUsuario(true);
+      alert('Debes registrar un usuario antes de confirmar tu pedido.');
+      return;
+    }
+
+    if (carrito.length === 0) {
+      alert('Tu carrito está vacío.');
+      return;
+    }
+
+    try {
+      const productosActuales = await cargarProductos();
+      const productosBase = productosActuales.length > 0 ? productosActuales : productos;
+      const productosActualizados = descontarStockProductos(productosBase, carrito);
+
+      const stockInsuficiente = carrito.some((item) => {
+        const productoBase = productosBase.find((producto) => Number(producto.id) === Number(item.id));
+        const stockActual = Number(productoBase?.stock ?? 0);
+        const cantidadSolicitada = Number(item.cantidad) || 0;
+        return stockActual < cantidadSolicitada;
+      });
+
+      if (stockInsuficiente) {
+        alert('Hay un producto del carrito sin stock suficiente en este momento.');
+        return;
+      }
+
+      const stockPorId = new Map(
+        productosActualizados.map((producto) => [String(producto.id), producto])
+      );
+
+      await Promise.all(
+        productosActualizados.map(async (productoActualizado) => {
+          const productoOriginal = productosBase.find((item) => Number(item.id) === Number(productoActualizado.id));
+          if (!productoOriginal) return;
+
+          const cambios = {
+            ...productoOriginal,
+            ...productoActualizado,
+            stock: Number(productoActualizado.stock) || 0,
+          };
+
+          await actualizarProducto(productoActualizado.id, cambios);
+        })
+      );
+
+      setProductos((prev) => prev.map((producto) => {
+        const actualizado = stockPorId.get(String(producto.id));
+        return actualizado ? { ...producto, ...actualizado, stock: Number(actualizado.stock) || 0 } : producto;
+      }));
+
+      setCarrito([]);
+      setMostrarCarrito(false);
+      alert(`Pedido confirmado para ${usuarioActual.nombre}. Total: $ ${totalPedido.toLocaleString('es-CO')}`);
+      await cargarProductos();
+    } catch (error) {
+      console.error('Error al confirmar el pedido:', error);
+      alert('No se pudo confirmar el pedido. Inténtalo de nuevo.');
+    }
+  };
+
+  const handleCrearUsuario = async (datosUsuario) => {
+    try {
+      const nuevoUsuario = await crearUsuarioApi(datosUsuario);
+      setUsuarioActual(nuevoUsuario);
+      setMostrarFormularioUsuario(false);
+      alert(`Usuario registrado correctamente: ${nuevoUsuario.nombre}`);
+    } catch (error) {
+      console.error('Error al registrar usuario:', error);
+      alert('No se pudo registrar el usuario. Inténtalo de nuevo.');
+    }
   };
 
   return (
     <div className="app-layout">
-      <Header 
+      <Header
         categorias={categorias}
-        categoriaActiva={categoriaActiva} 
+        categoriaActiva={categoriaActiva}
         onSelectCategoria={setCategoriaActiva}
         cartCount={cartCount}
         vista={vista}
         onCambiarVista={setVista}
+        onToggleCarrito={() => setMostrarCarrito((prev) => !prev)}
+        onAbrirRegistroUsuario={() => setMostrarFormularioUsuario(true)}
+        usuarioActual={usuarioActual}
       />
-      
+
       <main className="app-container">
-        {vista === "catalogo" ? (
+        {vista === 'catalogo' ? (
           <>
-            {/* Banner Section */}
             <Banner />
 
-            {/* Section Header */}
             <section className="catalog-header">
               <div>
                 <h2 className="catalog-title">
-                  {categoriaActiva === "Inicio" ? "Todos los Productos" : categoriaActiva}
+                  {categoriaActiva === 'Inicio' ? 'Todos los Productos' : categoriaActiva}
                 </h2>
                 <p className="catalog-count">{productosFiltrados.length} producto(s) disponibles</p>
               </div>
             </section>
 
-            {/* Product Grid */}
             <section className="product-grid">
               {cargando ? (
                 <p className="loading-text">Cargando productos...</p>
@@ -94,14 +219,14 @@ function App() {
                     precio={producto.precio}
                     imagen={producto.imagen}
                     tag={producto.tag}
-                    onAddToCart={handleAddToCart}
+                    stock={producto.stock}
+                    onAddToCart={(cantidad) => handleAddToCart(producto, cantidad)}
                   />
                 ))
               )}
             </section>
           </>
         ) : (
-          /* Vista de Administración de Productos */
           <GestionProductos
             productos={productos}
             categorias={categorias}
@@ -112,12 +237,27 @@ function App() {
         )}
       </main>
 
-      {/* Footer integrado directamente en App.jsx */}
-      <Footer 
+      <Carrito
+        carrito={carrito}
+        total={totalPedido}
+        abierto={mostrarCarrito}
+        onClose={() => setMostrarCarrito(false)}
+        onRemove={handleRemoveFromCart}
+        onConfirm={confirmarPedido}
+      />
+
+      {mostrarFormularioUsuario && (
+        <FormularioUsuario
+          onGuardar={handleCrearUsuario}
+          onCancelar={() => setMostrarFormularioUsuario(false)}
+        />
+      )}
+
+      <Footer
         categorias={categorias}
         setCategoriaActiva={(cat) => {
           setCategoriaActiva(cat);
-          setVista("catalogo");
+          setVista('catalogo');
         }}
       />
     </div>

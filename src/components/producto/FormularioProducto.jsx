@@ -10,6 +10,7 @@ export function FormularioProducto({ productoAEditar, categorias = [], onGuardar
     nombre: '',
     descripcion: '',
     precio: '',
+    stock: 0,
     categoria: categoriasValidas.length > 0 ? (categoriasValidas[0].nombre || categoriasValidas[0].label) : 'Hamburguesas',
     imagen: '',
     tag: ''
@@ -23,6 +24,7 @@ export function FormularioProducto({ productoAEditar, categorias = [], onGuardar
         nombre: productoAEditar.nombre || '',
         descripcion: productoAEditar.descripcion || '',
         precio: productoAEditar.precio || '',
+        stock: productoAEditar.stock ?? 0,
         categoria: productoAEditar.categoria || (categoriasValidas[0]?.nombre || categoriasValidas[0]?.label || 'Hamburguesas'),
         imagen: productoAEditar.imagen || '',
         tag: productoAEditar.tag || ''
@@ -46,7 +48,14 @@ export function FormularioProducto({ productoAEditar, categorias = [], onGuardar
       alert('Por favor completa el nombre y el precio del producto.');
       return;
     }
-    onGuardar(formData);
+
+    const productoFinal = {
+      ...formData,
+      stock: Number(formData.stock) || 0,
+      precio: formData.precio.toString().replace(/\$/g, '').trim(),
+    };
+
+    onGuardar(productoFinal);
   };
 
   const esEdicion = Boolean(productoAEditar);
@@ -91,6 +100,21 @@ export function FormularioProducto({ productoAEditar, categorias = [], onGuardar
               value={formData.precio}
               onChange={handleChange}
               required
+            />
+          </div>
+
+          {/* Stock */}
+          <div className="form-group">
+            <label htmlFor="stock" className="form-label">Stock disponible</label>
+            <input
+              type="number"
+              id="stock"
+              name="stock"
+              min="0"
+              className="form-input"
+              placeholder="0"
+              value={formData.stock}
+              onChange={handleChange}
             />
           </div>
 

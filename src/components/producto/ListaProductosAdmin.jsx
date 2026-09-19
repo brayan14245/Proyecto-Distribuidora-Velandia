@@ -27,6 +27,7 @@ export function ListaProductosAdmin({ productos = [], onEditar, onEliminar, carg
               <th>Nombre</th>
               <th>Categoría</th>
               <th>Precio</th>
+              <th>Stock</th>
               <th>Etiqueta</th>
               <th className="text-right">Acciones</th>
             </tr>
@@ -51,6 +52,11 @@ export function ListaProductosAdmin({ productos = [], onEditar, onEliminar, carg
                 </td>
                 <td className="td-price">
                   {prod.precio?.startsWith?.('$') ? prod.precio : `$ ${prod.precio}`}
+                </td>
+                <td>
+                  <span className={`badge-stock ${Number(prod.stock) <= 0 ? 'empty' : ''}`}>
+                    {Number(prod.stock ?? 0)}
+                  </span>
                 </td>
                 <td>
                   {prod.tag ? <span className="badge-tag">{prod.tag}</span> : <span className="text-muted">-</span>}
