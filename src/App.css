@@ -1626,4 +1626,24 @@ img.brand-logo {
   color: #a13d4d;
 }
 
+.admin-login-card {
+  border: 1px solid rgba(145, 61, 85, 0.16);
+}
+
+.login-eyebrow {
+  display: block;
+  margin-bottom: 4px;
+  color: #a2465d;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.login-description {
+  margin-top: 8px;
+  color: #77686a;
+  font-size: 0.9rem;
+}
+
 
