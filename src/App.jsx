@@ -8,11 +8,15 @@ import { GestionProductos } from './components/producto/GestionProductos';
 import { Carrito } from './components/Carrito';
 import { CuentaUsuario } from './components/usuario/CuentaUsuario';
 import { LoginAdmin } from './components/usuario/LoginAdmin';
+import { HistorialPedidos } from './components/usuario/HistorialPedidos';
 import { obtenerProductos, actualizarProducto } from './services/productService';
 import { obtenerCategorias } from './services/categoryService';
 import { obtenerBanners } from './services/bannerService';
-import { crearUsuario as crearUsuarioApi } from './services/userService';
+import { obtenerUsuarios, crearUsuario as crearUsuarioApi } from './services/userService';
 import { autenticarUsuario } from './services/userService';
+import { guardarSesion, obtenerSesion, cerrarSesion } from './services/userService';
+import { crearOrden } from './services/orderService';
+import { obtenerOrdenes } from './services/orderService';
 import { obtenerCarrito } from './services/storeService';
 import { guardarCarrito } from './services/storeService';
 import { agregarAlCarrito } from './services/storeService';
@@ -34,6 +38,8 @@ function App() {
   const [productos, setProductos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [banners, setBanners] = useState([]);
+  const [ordenes, setOrdenes] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
   const [cargando, setCargando] = useState(true);
 
   const cargarProductos = async () => {
@@ -69,10 +75,31 @@ function App() {
     }
   };
 
+  const cargarOrdenes = async () => {
+    try {
+      const data = await obtenerOrdenes();
+      setOrdenes(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error('Error al obtener las órdenes:', error);
+    }
+  };
+
+  const cargarUsuarios = async () => {
+    try {
+      const data = await obtenerUsuarios();
+      setUsuarios(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error('Error al obtener los usuarios:', error);
+    }
+  };
+
   useEffect(() => {
+    setUsuarioActual(obtenerSesion());
     cargarProductos();
     cargarCategorias();
     cargarBanners();
+    cargarOrdenes();
+    cargarUsuarios();
     setCarrito(obtenerCarrito());
   }, []);
 
@@ -136,6 +163,26 @@ function App() {
         return;
       }
 
+      const totalOrden = totalPedido;
+      const orden = {
+        usuarioId: usuarioActual.id,
+        usuario: {
+          id: usuarioActual.id,
+          nombre: usuarioActual.nombre,
+          email: usuarioActual.email,
+        },
+        productos: carrito.map((item) => ({
+          productoId: item.id,
+          nombre: item.nombre,
+          cantidad: Number(item.cantidad) || 0,
+          precio: Number(item.precio) || 0,
+          subtotal: (Number(item.precio) || 0) * (Number(item.cantidad) || 0),
+        })),
+        total: totalOrden,
+        fecha: new Date().toISOString(),
+        estado: 'pendiente',
+      };
+
       const stockPorId = new Map(
         productosActualizados.map((producto) => [String(producto.id), producto])
       );
@@ -154,6 +201,9 @@ function App() {
           await actualizarProducto(productoActualizado.id, cambios);
         })
       );
+
+      await crearOrden(orden);
+      await cargarOrdenes();
 
       setProductos((prev) => prev.map((producto) => {
         const actualizado = stockPorId.get(String(producto.id));
@@ -176,7 +226,9 @@ function App() {
   const handleCrearUsuario = async (datosUsuario) => {
     try {
       const nuevoUsuario = await crearUsuarioApi(datosUsuario);
+      await cargarUsuarios();
       setUsuarioActual(nuevoUsuario);
+      guardarSesion(nuevoUsuario);
       setMostrarFormularioUsuario(false);
       mostrarExito('Usuario registrado', `Bienvenido, ${nuevoUsuario.nombre}.`);
     } catch (error) {
@@ -195,6 +247,7 @@ function App() {
       }
 
       setUsuarioActual(usuario);
+      guardarSesion(usuario);
       setMostrarFormularioUsuario(false);
       mostrarExito('Sesión iniciada', `Bienvenido, ${usuario.nombre}.`);
     } catch (error) {
@@ -210,6 +263,14 @@ function App() {
     }
 
     setMostrarLoginAdmin(true);
+  };
+
+  const cerrarSesionUsuario = () => {
+    cerrarSesion();
+    setUsuarioActual(null);
+    setVista('catalogo');
+    setMostrarFormularioUsuario(false);
+    mostrarExito('Sesión cerrada', 'Has cerrado tu sesión correctamente.');
   };
 
   const cerrarSesionAdmin = () => {
@@ -268,14 +329,20 @@ function App() {
               )}
             </section>
           </>
+        ) : vista === 'historial' && usuarioActual ? (
+          <HistorialPedidos usuario={usuarioActual} onVolver={() => setVista('catalogo')} />
         ) : adminAutenticado ? (
           <GestionProductos
             productos={productos}
             categorias={categorias}
             banners={banners}
+            ordenes={ordenes}
+            usuarios={usuarios}
             onActualizarProductos={cargarProductos}
             onActualizarCategorias={cargarCategorias}
             onActualizarBanners={cargarBanners}
+            onActualizarOrdenes={cargarOrdenes}
+            onActualizarUsuarios={cargarUsuarios}
             cargando={cargando}
           />
         ) : null}
@@ -296,9 +363,11 @@ function App() {
           onCrearUsuario={handleCrearUsuario}
           onIniciarSesion={handleIniciarSesion}
           onCerrarSesion={() => {
-            setUsuarioActual(null);
+            cerrarSesionUsuario();
+          }}
+          onVerHistorial={() => {
             setMostrarFormularioUsuario(false);
-            mostrarExito('Sesión cerrada', 'Has cerrado tu sesión correctamente.');
+            setVista('historial');
           }}
           onCancelar={() => setMostrarFormularioUsuario(false)}
         />

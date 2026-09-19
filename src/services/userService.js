@@ -1,4 +1,5 @@
 const API_URL = 'https://6aa6a919d7765db985078096.mockapi.io/usuario';
+const SESSION_KEY = 'quickorder_usuario_sesion';
 
 const readLocalFallback = () => {
   try {
@@ -73,6 +74,41 @@ export const autenticarUsuario = async ({ email, contrasena }) => {
 
   return usuarios.find((usuario) => (
     usuario.email?.trim().toLowerCase() === emailNormalizado
-    && usuario.contrasena === contrasena
+    && (usuario.contrasena === contrasena || usuario.clave === contrasena)
   )) || null;
+};
+
+export const guardarSesion = (usuario) => {
+  window.localStorage.setItem(SESSION_KEY, JSON.stringify(usuario));
+};
+
+export const obtenerSesion = () => {
+  try {
+    const raw = window.localStorage.getItem(SESSION_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const cerrarSesion = () => {
+  window.localStorage.removeItem(SESSION_KEY);
+};
+
+export const actualizarUsuario = (id, usuario) => {
+  return fetch(`${API_URL}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(usuario),
+  }).then((response) => {
+    if (!response.ok) throw new Error('No se pudo actualizar el usuario');
+    return response.json();
+  });
+};
+
+export const eliminarUsuario = (id) => {
+  return fetch(`${API_URL}/${id}`, { method: 'DELETE' }).then((response) => {
+    if (!response.ok) throw new Error('No se pudo eliminar el usuario');
+    return response.json();
+  });
 };

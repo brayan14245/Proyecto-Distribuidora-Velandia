@@ -21,11 +21,11 @@
 .header-inner {
   max-width: 1240px;
   margin: 0 auto;
-  padding: 16px 24px;
+  padding: 10px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 6px;
 }
 
 /* Brand Section */
@@ -90,9 +90,11 @@ img.brand-logo {
   color: #4a4660;
   border: 1px solid rgba(142, 121, 239, 0.12);
   font-family: var(--font-family);
-  font-size: 0.9rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  padding: 9px 18px;
+  min-height: 28px;
+  padding: 3px 6px;
+  box-sizing: border-box;
   border-radius: 9999px;
   cursor: pointer;
   white-space: nowrap;
@@ -115,11 +117,14 @@ img.brand-logo {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 5px;
 }
 
 .user-button,
 .cart-button {
+  min-width: 68px;
+  min-height: 32px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -128,9 +133,12 @@ img.brand-logo {
   border: 1.5px solid rgba(126, 107, 219, 0.18);
   color: #2b233d;
   font-family: var(--font-family);
-  font-size: 0.9rem;
+  font-size: 0.64rem;
   font-weight: 700;
-  padding: 9px 16px;
+  padding: 3px 4px;
+  gap: 3px;
+  line-height: 1.2;
+  text-align: center;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -152,6 +160,7 @@ img.brand-logo {
   font-weight: 700;
   padding: 2px 7px;
   border-radius: 9999px;
+  flex-shrink: 0;
 }
 
 /* App Main Container */
@@ -168,21 +177,29 @@ img.brand-logo {
 .view-nav {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   background: rgba(142, 121, 239, 0.06);
   border: 1px solid rgba(142, 121, 239, 0.12);
   border-radius: 999px;
-  padding: 6px;
+  padding: 4px;
+  min-height: 32px;
+  box-sizing: border-box;
 }
 
 .view-btn {
+  min-width: 68px;
+  min-height: 26px;
+  box-sizing: border-box;
   border: none;
   background: transparent;
   color: #4b4660;
   font-family: var(--font-family);
-  font-size: 0.8rem;
+  font-size: 0.61rem;
   font-weight: 700;
-  padding: 8px 14px;
+  padding: 3px 4px;
+  white-space: nowrap;
+  line-height: 1.2;
+  text-align: center;
   border-radius: 999px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -223,7 +240,7 @@ img.brand-logo {
   position: relative;
   display: flex;
   align-items: flex-end;
-  padding: 36px 32px 24px;
+  padding: 36px 32px 72px;
   background-size: cover;
   background-position: center;
   transition: background-image 0.5s ease-in-out;
@@ -305,25 +322,51 @@ img.brand-logo {
 
 .slider-dots {
   position: absolute;
-  right: 26px;
-  bottom: 24px;
+  left: 50%;
+  bottom: 14px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 2px;
+  min-height: 36px;
+  transform: translateX(-50%);
 }
 
 .dot {
-  width: 10px;
-  height: 10px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  padding: 0;
   border-radius: 50%;
   border: none;
-  background: rgba(255, 255, 255, 0.5);
+  background: transparent;
   cursor: pointer;
   transition: all 0.25s ease;
 }
 
+.dot::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.65);
+  transition: all 0.25s ease;
+}
+
+.dot:hover::before {
+  background: #ffffff;
+  transform: scale(1.15);
+}
+
 .dot.active {
-  width: 26px;
+  width: 32px;
+  height: 32px;
+}
+
+.dot.active::before {
+  width: 22px;
   border-radius: 999px;
   background: #ffffff;
 }
@@ -682,8 +725,25 @@ img.brand-logo {
     font-size: 1.5rem;
   }
 
+  .hero-slider {
+    min-height: 330px;
+    padding: 28px 20px 68px;
+  }
+
+  .slider-dots {
+    bottom: 10px;
+  }
+
   .product-grid {
     grid-template-columns: 1fr;
+  }
+
+  .order-history-item {
+    grid-template-columns: 1fr auto;
+  }
+
+  .order-history-item > strong:last-child {
+    grid-column: 1 / -1;
   }
 
   .footer-inner {
@@ -736,6 +796,42 @@ img.brand-logo {
   flex-direction: column;
   gap: 28px;
   text-align: left;
+}
+
+.order-history {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  text-align: left;
+}
+
+.order-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.order-history-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 18px;
+  padding: 16px 18px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.order-history-item p {
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.order-status-select {
+  min-width: 150px;
+  padding: 7px 10px;
 }
 
 .gestion-header h2 {

@@ -55,6 +55,14 @@ export function Header({
             >
               {adminAutenticado && vista === 'admin' ? '↩️ Salir admin' : '⚙️ Administración'}
             </button>
+            {usuarioActual && (
+              <button
+                className={`view-btn ${vista === 'historial' ? 'active' : ''}`}
+                onClick={() => onCambiarVista && onCambiarVista('historial')}
+              >
+                📦 Pedidos
+              </button>
+            )}
           </div>
 
           {vista === 'catalogo' && (

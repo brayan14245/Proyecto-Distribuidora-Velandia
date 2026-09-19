@@ -3,10 +3,12 @@ import { FormularioProducto } from './FormularioProducto';
 import { ListaProductosAdmin } from './ListaProductosAdmin';
 import { GestionCategorias } from './GestionCategorias';
 import { GestionBanners } from './GestionBanners';
+import { GestionOrdenes } from './GestionOrdenes';
+import { GestionUsuarios } from './GestionUsuarios';
 import { crearProducto, actualizarProducto, eliminarProducto } from '../../services/productService';
 import { confirmarAccion, mostrarError, mostrarExito } from '../../services/notificationService';
 
-export function GestionProductos({ productos = [], categorias = [], banners = [], onActualizarProductos, onActualizarCategorias, onActualizarBanners, cargando }) {
+export function GestionProductos({ productos = [], categorias = [], banners = [], ordenes = [], usuarios = [], onActualizarProductos, onActualizarCategorias, onActualizarBanners, onActualizarOrdenes, onActualizarUsuarios, cargando }) {
   const [productoAEditar, setProductoAEditar] = useState(null);
   const [guardando, setGuardando] = useState(false);
 
@@ -90,6 +92,16 @@ export function GestionProductos({ productos = [], categorias = [], banners = []
       <GestionBanners
         banners={banners}
         onActualizarBanners={onActualizarBanners}
+      />
+
+      <GestionOrdenes
+        ordenes={ordenes}
+        onActualizarOrdenes={onActualizarOrdenes}
+      />
+
+      <GestionUsuarios
+        usuarios={usuarios}
+        onActualizarUsuarios={onActualizarUsuarios}
       />
 
       <FormularioProducto

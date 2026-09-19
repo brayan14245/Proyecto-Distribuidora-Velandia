@@ -13,7 +13,7 @@ const accesoInicial = {
   contrasena: '',
 };
 
-export function CuentaUsuario({ usuarioActual = null, onCrearUsuario, onIniciarSesion, onCerrarSesion, onCancelar }) {
+export function CuentaUsuario({ usuarioActual = null, onCrearUsuario, onIniciarSesion, onCerrarSesion, onVerHistorial, onCancelar }) {
   const [modo, setModo] = useState('iniciar');
   const [registro, setRegistro] = useState(registroInicial);
   const [acceso, setAcceso] = useState(accesoInicial);
@@ -73,6 +73,9 @@ export function CuentaUsuario({ usuarioActual = null, onCrearUsuario, onIniciarS
             <h4>{usuarioActual.nombre}</h4>
             <p className="account-session-email">{usuarioActual.email}</p>
             <div className="form-actions">
+              <button type="button" className="btn-save" onClick={onVerHistorial}>
+                Ver pedidos
+              </button>
               <button type="button" className="btn-action-delete" onClick={onCerrarSesion}>
                 Cerrar sesión
               </button>
