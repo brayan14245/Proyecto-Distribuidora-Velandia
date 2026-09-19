@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const slides = [
+export const slidesPredeterminadas = [
     {
         badge: 'Belleza premium',
         title: 'Descubre tu rutina ideal',
@@ -24,16 +24,18 @@ const slides = [
     }
 ];
 
-export function Banner() {
+export function Banner({ banners = [] }) {
     const [slideActual, setSlideActual] = useState(0);
+    const slides = banners.length > 0 ? banners : slidesPredeterminadas;
 
     useEffect(() => {
+        setSlideActual(0);
         const intervalo = setInterval(() => {
             setSlideActual((prev) => (prev + 1) % slides.length);
         }, 4500);
 
         return () => clearInterval(intervalo);
-    }, []);
+    }, [slides.length]);
 
     const slide = slides[slideActual];
 

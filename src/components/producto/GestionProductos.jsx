@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { FormularioProducto } from './FormularioProducto';
 import { ListaProductosAdmin } from './ListaProductosAdmin';
 import { GestionCategorias } from './GestionCategorias';
+import { GestionBanners } from './GestionBanners';
 import { crearProducto, actualizarProducto, eliminarProducto } from '../../services/productService';
 import { confirmarAccion, mostrarError, mostrarExito } from '../../services/notificationService';
 
-export function GestionProductos({ productos = [], categorias = [], onActualizarProductos, onActualizarCategorias, cargando }) {
+export function GestionProductos({ productos = [], categorias = [], banners = [], onActualizarProductos, onActualizarCategorias, onActualizarBanners, cargando }) {
   const [productoAEditar, setProductoAEditar] = useState(null);
   const [guardando, setGuardando] = useState(false);
 
@@ -84,6 +85,11 @@ export function GestionProductos({ productos = [], categorias = [], onActualizar
       <GestionCategorias
         categorias={categorias}
         onActualizarCategorias={onActualizarCategorias}
+      />
+
+      <GestionBanners
+        banners={banners}
+        onActualizarBanners={onActualizarBanners}
       />
 
       <FormularioProducto

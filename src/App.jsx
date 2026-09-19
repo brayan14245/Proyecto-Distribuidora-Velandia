@@ -9,6 +9,7 @@ import { Carrito } from './components/Carrito';
 import { FormularioUsuario } from './components/usuario/FormularioUsuario';
 import { obtenerProductos, actualizarProducto } from './services/productService';
 import { obtenerCategorias } from './services/categoryService';
+import { obtenerBanners } from './services/bannerService';
 import { obtenerUsuarios as obtenerUsuariosApi } from './services/userService';
 import { crearUsuario as crearUsuarioApi } from './services/userService';
 import { obtenerCarrito } from './services/storeService';
@@ -29,6 +30,7 @@ function App() {
 
   const [productos, setProductos] = useState([]);
   const [categorias, setCategorias] = useState([]);
+  const [banners, setBanners] = useState([]);
   const [cargando, setCargando] = useState(true);
 
   const cargarProductos = async () => {
@@ -55,6 +57,15 @@ function App() {
       });
   };
 
+  const cargarBanners = async () => {
+    try {
+      const data = await obtenerBanners();
+      setBanners(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error('Error al obtener los banners:', error);
+    }
+  };
+
   useEffect(() => {
     const cargarUsuarioActual = async () => {
       try {
@@ -69,6 +80,7 @@ function App() {
 
     cargarProductos();
     cargarCategorias();
+    cargarBanners();
     setCarrito(obtenerCarrito());
     cargarUsuarioActual();
   }, []);
@@ -199,7 +211,7 @@ function App() {
       <main className="app-container">
         {vista === 'catalogo' ? (
           <>
-            <Banner />
+            <Banner banners={banners} />
 
             <section className="catalog-header">
               <div>
@@ -234,8 +246,10 @@ function App() {
           <GestionProductos
             productos={productos}
             categorias={categorias}
+            banners={banners}
             onActualizarProductos={cargarProductos}
             onActualizarCategorias={cargarCategorias}
+            onActualizarBanners={cargarBanners}
             cargando={cargando}
           />
         )}

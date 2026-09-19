@@ -759,6 +759,51 @@ img.brand-logo {
   box-shadow: var(--shadow-sm);
 }
 
+.banner-admin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.banner-admin-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.banner-admin-image {
+  width: 96px;
+  height: 58px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.banner-admin-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.banner-admin-info strong {
+  color: #0f172a;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.banner-admin-info span {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
 .form-header {
   margin-bottom: 20px;
   padding-bottom: 12px;
