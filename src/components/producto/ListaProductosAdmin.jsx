@@ -14,7 +14,7 @@ export function ListaProductosAdmin({ productos = [], onEditar, onEliminar, carg
   return (
     <div className="admin-table-container">
       <div className="table-header-info">
-        <h3 className="table-title">📋 Lista de Productos Registrados</h3>
+        <h3 className="table-title">Lista de Productos Registrados</h3>
         <span className="table-count">{productos.length} producto(s)</span>
       </div>
 
@@ -39,7 +39,7 @@ export function ListaProductosAdmin({ productos = [], onEditar, onEliminar, carg
                   {prod.imagen ? (
                     <img src={prod.imagen} alt={prod.nombre} className="table-thumb" />
                   ) : (
-                    <span className="table-thumb-placeholder">🍔</span>
+                    <span className="table-thumb-placeholder"></span>
                   )}
                 </td>
                 <td className="td-name">

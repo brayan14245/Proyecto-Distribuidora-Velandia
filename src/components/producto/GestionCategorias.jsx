@@ -84,7 +84,7 @@ export function GestionCategorias({ categorias = [], onActualizarCategorias }) {
             type="text"
             id="nombre-categoria"
             className="form-input"
-            placeholder="Ej. Combos"
+            placeholder="Ej. Belleza, Accesorios, Regalos"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
             required

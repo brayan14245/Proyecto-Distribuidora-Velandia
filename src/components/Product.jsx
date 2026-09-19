@@ -1,4 +1,10 @@
 export function Product({ indice, nombre, descripcion, precio, imagen, tag, onAddToCart }) {
+    const precioFormateado = typeof precio === 'number'
+        ? `$ ${precio.toLocaleString('es-CO')}`
+        : typeof precio === 'string' && precio.startsWith('$')
+            ? precio
+            : `$ ${precio ?? 0}`;
+
     return (
         <article className="product-card" key={indice}>
             <div className="product-image-container">
@@ -6,7 +12,7 @@ export function Product({ indice, nombre, descripcion, precio, imagen, tag, onAd
                 {imagen ? (
                     <img src={imagen} alt={nombre} className="product-image" loading="lazy" />
                 ) : (
-                    <div className="product-image-placeholder">🍔</div>
+                    <div className="product-image-placeholder"></div>
                 )}
             </div>
             <div className="product-content">
@@ -15,9 +21,7 @@ export function Product({ indice, nombre, descripcion, precio, imagen, tag, onAd
                 <div className="product-footer">
                     <div className="price-wrapper">
                         <span className="price-label">Precio</span>
-                        <span className="product-price">
-                            {precio.startsWith('$') ? precio : `$ ${precio}`}
-                        </span>
+                        <span className="product-price">{precioFormateado}</span>
                     </div>
                     <button className="btn-add-order" onClick={() => onAddToCart && onAddToCart(nombre)}>
                         <span className="btn-plus">+</span> Agregar

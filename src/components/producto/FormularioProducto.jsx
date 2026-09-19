@@ -72,7 +72,7 @@ export function FormularioProducto({ productoAEditar, categorias = [], onGuardar
               id="nombre"
               name="nombre"
               className="form-input"
-              placeholder="Ej. Hamburguesa Doble Queso"
+              placeholder="ej. base de maquillaje"
               value={formData.nombre}
               onChange={handleChange}
               required
@@ -111,10 +111,9 @@ export function FormularioProducto({ productoAEditar, categorias = [], onGuardar
                 })
               ) : (
                 <>
-                  <option value="Hamburguesas">Hamburguesas</option>
-                  <option value="Perros Calientes">Perros Calientes</option>
-                  <option value="Salchipapas">Salchipapas</option>
-                  <option value="Bebidas">Bebidas</option>
+                  <option value="Belleza">Belleza</option>
+                  <option value="Accesorios">Accesorios</option>
+                  <option value="Artículos para regalo">Artículos para regalo</option>
                 </>
               )}
             </select>
