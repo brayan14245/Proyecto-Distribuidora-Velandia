@@ -29,6 +29,13 @@ export function HistorialPedidos({ usuario, onVolver }) {
             <div>
               <strong>Pedido #{orden.id}</strong>
               <p>{new Date(orden.fecha).toLocaleString('es-CO')}</p>
+              <div className="order-products-summary">
+                {(orden.productos || []).map((producto) => (
+                  <span key={producto.productoId}>
+                    {producto.cantidad} x {producto.nombre}
+                  </span>
+                ))}
+              </div>
             </div>
             <span className="badge-category">{orden.estado}</span>
             <strong>$ {Number(orden.total || 0).toLocaleString('es-CO')}</strong>

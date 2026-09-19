@@ -61,7 +61,16 @@ export function GestionOrdenes({ ordenes = [], onActualizarOrdenes }) {
                 <tr key={orden.id}>
                   <td>#{orden.id}</td>
                   <td>{orden.usuario?.nombre || orden.usuarioId}</td>
-                  <td>$ {Number(orden.total || 0).toLocaleString('es-CO')}</td>
+                  <td>
+                    <strong>$ {Number(orden.total || 0).toLocaleString('es-CO')}</strong>
+                    <div className="order-products-summary">
+                      {(orden.productos || []).map((producto) => (
+                        <span key={producto.productoId}>
+                          {producto.cantidad} x {producto.nombre}
+                        </span>
+                      ))}
+                    </div>
+                  </td>
                   <td>
                     <select
                       className="form-input order-status-select"

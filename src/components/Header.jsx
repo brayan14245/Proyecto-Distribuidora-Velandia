@@ -24,6 +24,10 @@ export function Header({
 
         {vista === 'catalogo' ? (
           <Menu categorias={categorias} onSelectCategoria={onSelectCategoria} categoriaActiva={categoriaActiva} />
+        ) : vista === 'historial' ? (
+          <div className="view-title-nav">
+            <span className="view-badge">Mis pedidos</span>
+          </div>
         ) : (
           <div className="view-title-nav">
             <span className="view-badge">Modo Administración</span>
