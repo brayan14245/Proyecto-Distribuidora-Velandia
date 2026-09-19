@@ -1,26 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
 
 :root {
-  --bg-color: #f8f1ed;
-  --surface-color: #fffaf7;
-  --card-bg: #fffdfb;
-  --text-main: #302528;
-  --text-muted: #77686a;
-  --border-color: #eadbd5;
-  --primary-blue: #a2465d;
-  --primary-hover: #87354b;
-  --accent-lavender: #d99aa6;
-  --accent-rose: #e9b8bb;
-  --accent-mint: #b8cec2;
-  --accent-gold: #c99b55;
-  --brand-dark: #302528;
-  --brand-gradient: linear-gradient(135deg, #913d55 0%, #c36c78 55%, #d0a15c 100%);
-  --soft-gradient: linear-gradient(135deg, rgba(224, 172, 178, 0.24), rgba(207, 166, 103, 0.12));
+  --bg-color: #f9f5ff;
+  --surface-color: #fffdfd;
+  --card-bg: #ffffff;
+  --text-main: #1f1b2d;
+  --text-muted: #6f6479;
+  --border-color: #eadff7;
+  --primary-blue: #7e6bdb;
+  --primary-hover: #5f4cc7;
+  --accent-lavender: #b18df8;
+  --accent-rose: #f7bfd0;
+  --accent-mint: #8fe1d5;
+  --accent-gold: #f3d28c;
+  --brand-dark: #111111;
+  --brand-gradient: linear-gradient(135deg, #8e79ef 0%, #7ab9e9 48%, #6fd3d0 100%);
+  --soft-gradient: linear-gradient(135deg, rgba(191, 175, 245, 0.22), rgba(140, 212, 224, 0.2));
   --font-family: 'DM Sans', system-ui, sans-serif;
   --font-display: 'Playfair Display', Georgia, serif;
-  --shadow-sm: 0 4px 14px rgb(91 56 57 / 0.08);
-  --shadow-md: 0 14px 30px -16px rgb(91 56 57 / 0.28), 0 5px 14px -6px rgb(65 47 48 / 0.12);
-  --shadow-lg: 0 22px 44px -20px rgb(91 56 57 / 0.3), 0 10px 20px -10px rgb(63 45 46 / 0.12);
+  --shadow-sm: 0 1px 3px 0 rgb(125 92 173 / 0.08);
+  --shadow-md: 0 10px 22px -12px rgb(110 78 176 / 0.22), 0 3px 10px -4px rgb(65 58 86 / 0.1);
+  --shadow-lg: 0 18px 38px -18px rgb(72 54 124 / 0.28), 0 8px 18px -8px rgb(63 53 85 / 0.08);
 }
 
 * {
@@ -36,9 +36,9 @@ html {
 body {
   font-family: var(--font-family);
   background:
-    radial-gradient(circle at 8% 0%, rgba(225, 174, 181, 0.2), transparent 26%),
-    radial-gradient(circle at 94% 16%, rgba(209, 164, 101, 0.12), transparent 24%),
-    linear-gradient(145deg, #fbf5f1 0%, var(--bg-color) 56%, #f3e7e1 100%);
+    radial-gradient(circle at top left, rgba(180, 160, 255, 0.22), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(125, 209, 215, 0.18), transparent 22%),
+    var(--bg-color);
   color: var(--text-main);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;

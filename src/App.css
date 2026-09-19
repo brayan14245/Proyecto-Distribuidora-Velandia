@@ -1361,7 +1361,7 @@ img.brand-logo {
 }
 
 .brand-name {
-  color: #302528;
+  color: #1b1b22;
   letter-spacing: 0.12em;
 }
 
@@ -1374,15 +1374,15 @@ img.brand-logo {
 }
 
 .category-pill {
-  background: rgba(194, 108, 120, 0.07);
-  color: #6e4a50;
-  border-color: rgba(145, 61, 85, 0.13);
-  border-radius: 10px;
+  background: rgba(142, 121, 239, 0.08);
+  color: #4a4660;
+  border-color: rgba(142, 121, 239, 0.12);
+  border-radius: 9999px;
 }
 
 .category-pill:hover {
-  background: rgba(194, 108, 120, 0.14);
-  color: #87354b;
+  background: rgba(142, 121, 239, 0.13);
+  color: #241f34;
 }
 
 .category-pill.active,
@@ -1390,26 +1390,26 @@ img.brand-logo {
 .btn-add-order,
 .btn-confirm,
 .btn-save {
-  background: var(--brand-gradient);
+  background: linear-gradient(135deg, #7e6bdb 0%, #6ad0d6 100%);
 }
 
 .user-button,
 .cart-button {
-  background: #fffaf7;
-  border-color: rgba(145, 61, 85, 0.2);
-  color: #57353e;
+  background: linear-gradient(135deg, #ffffff 0%, #f7f0ff 100%);
+  border-color: rgba(126, 107, 219, 0.18);
+  color: #2b233d;
 }
 
 .user-button:hover,
 .cart-button:hover {
-  border-color: rgba(145, 61, 85, 0.45);
-  color: #87354b;
+  border-color: rgba(126, 107, 219, 0.35);
+  color: #453a74;
 }
 
 .cart-badge,
 .view-badge {
-  background: #d0a15c;
-  color: #fffaf5;
+  background: linear-gradient(135deg, #7e6bdb 0%, #5eced5 100%);
+  color: #ffffff;
 }
 
 .app-container {
@@ -1417,9 +1417,9 @@ img.brand-logo {
 }
 
 .hero-banner {
-  border-radius: 12px;
-  border-color: rgba(145, 61, 85, 0.22);
-  box-shadow: var(--shadow-md);
+  border-radius: 28px;
+  border-color: rgba(142, 121, 239, 0.18);
+  box-shadow: var(--shadow-sm);
 }
 
 .hero-slider {
@@ -1427,13 +1427,13 @@ img.brand-logo {
 }
 
 .hero-slider::before {
-  background: linear-gradient(90deg, rgba(48, 37, 40, 0.76) 0%, rgba(48, 37, 40, 0.28) 52%, rgba(48, 37, 40, 0.08) 100%);
+  background: linear-gradient(90deg, rgba(19, 17, 27, 0.7) 0%, rgba(19, 17, 27, 0.2) 45%, rgba(19, 17, 27, 0.1) 100%);
 }
 
 .banner-badge {
-  background: rgba(236, 194, 143, 0.94);
-  color: #684528;
-  border-radius: 6px;
+  background: rgba(243, 210, 140, 0.88);
+  color: #7a4f17;
+  border-radius: 9999px;
 }
 
 .banner-title {
@@ -1442,10 +1442,10 @@ img.brand-logo {
 }
 
 .cta-primary {
-  background: #fffaf7;
-  color: #87354b;
-  border-radius: 8px;
-  box-shadow: 0 12px 22px -14px rgba(48, 37, 40, 0.9);
+  background: linear-gradient(135deg, #7e6bdb 0%, #62c8d0 100%);
+  color: #ffffff;
+  border-radius: 999px;
+  box-shadow: 0 12px 22px -14px rgba(92, 79, 167, 0.9);
 }
 
 .catalog-header {
@@ -1453,41 +1453,41 @@ img.brand-logo {
 }
 
 .catalog-title {
-  color: #4f3038;
-  font-size: 1.7rem;
+  color: #231d31;
+  font-size: 1.4rem;
 }
 
 .product-card {
-  background: #fffdfb;
-  border-color: rgba(145, 61, 85, 0.13);
-  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff 0%, #fffafc 100%);
+  border-color: rgba(142, 121, 239, 0.14);
+  border-radius: 18px;
 }
 
 .product-card::before {
-  background: linear-gradient(90deg, #913d55 0%, #d18b8c 55%, #d0a15c 100%);
+  background: linear-gradient(90deg, #7e6bdb 0%, #6ad0d6 55%, #f7bfd0 100%);
 }
 
 .product-card:hover {
-  border-color: rgba(145, 61, 85, 0.34);
+  border-color: rgba(126, 107, 219, 0.3);
 }
 
 .product-image-container {
-  background: linear-gradient(145deg, #f4e7e1, #ead4d0);
+  background: #f1f5f9;
 }
 
 .product-tag {
-  background: rgba(145, 61, 85, 0.94);
-  border-radius: 6px;
-  box-shadow: 0 10px 18px -12px rgba(91, 56, 57, 0.85);
+  background: linear-gradient(135deg, rgba(126, 107, 219, 0.96), rgba(98, 200, 208, 0.85));
+  border-radius: 999px;
+  box-shadow: 0 10px 18px -12px rgba(92, 79, 167, 0.85);
 }
 
 .product-title,
 .product-price {
-  color: #3f2b30;
+  color: #231d31;
 }
 
 .product-description {
-  color: #77686a;
+  color: #645d76;
 }
 
 .product-footer {
@@ -1495,169 +1495,169 @@ img.brand-logo {
 }
 
 .quantity-picker {
-  border-color: rgba(145, 61, 85, 0.2);
-  background: #fbf1ed;
+  border-color: rgba(126, 107, 219, 0.2);
+  background: #f8f5ff;
 }
 
 .qty-btn {
-  color: #87354b;
+  color: #382d62;
 }
 
 .btn-add-order:hover,
 .btn-confirm:hover,
 .btn-save:hover {
-  background: linear-gradient(135deg, #87354b 0%, #b85c6c 58%, #b88749 100%);
+  background: linear-gradient(135deg, #6954d4 0%, #58b8c4 100%);
 }
 
 .app-footer {
-  background: linear-gradient(180deg, rgba(255, 250, 247, 0.96) 0%, rgba(244, 230, 224, 0.96) 100%);
-  border-top-color: rgba(145, 61, 85, 0.15);
+  background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(246,240,255,0.92) 100%);
+  border-top-color: rgba(142, 121, 239, 0.12);
 }
 
 .footer-heading,
 .footer-info,
 .footer-description {
-  color: #5f4a4e;
+  color: #5f5971;
 }
 
 .footer-list button:hover {
-  color: #a2465d;
+  color: #0284c7;
 }
 
 .view-nav {
-  background: #f1e5e0;
+  background: #f1f5f9;
 }
 
 .view-btn {
-  color: #806b6d;
+  color: #64748b;
 }
 
 .view-btn:hover {
-  color: #57353e;
+  color: #0f172a;
 }
 
 .view-btn.active {
-  color: #fffaf7;
+  color: #0284c7;
 }
 
 .gestion-header h2,
 .form-title,
 .table-title {
-  color: #4f3038;
+  color: #0f172a;
 }
 
 .gestion-header p,
 .form-subtitle {
-  color: #77686a;
+  color: var(--text-muted);
 }
 
 .card-form-container,
 .admin-table-container {
-  background: #fffdfb;
-  border-color: #eadbd5;
-  border-radius: 12px;
+  background: #ffffff;
+  border-color: #e2e8f0;
+  border-radius: 18px;
   box-shadow: var(--shadow-sm);
 }
 
 .form-header {
-  border-bottom-color: #f0dfda;
+  border-bottom-color: #f1f5f9;
 }
 
 .form-label {
-  color: #65464d;
+  color: #334155;
 }
 
 .form-input,
 .user-form input {
-  background: #fdf7f4;
-  border-color: #e5d3ce;
-  color: #3f2b30;
-  border-radius: 8px;
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: #0f172a;
+  border-radius: 10px;
 }
 
 .form-input:focus,
 .user-form input:focus {
-  border-color: #a2465d;
-  background: #fffdfb;
-  box-shadow: 0 0 0 3px rgba(162, 70, 93, 0.13);
+  border-color: #0284c7;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
 }
 
 .btn-cancel,
 .btn-action-edit {
-  background: #f5e9e5;
-  color: #76565c;
-  border-color: #dfc9c3;
+  background: #f1f5f9;
+  color: #64748b;
+  border-color: #cbd5e1;
 }
 
 .btn-cancel:hover,
 .btn-action-edit:hover {
-  background: #ead8d2;
-  border-color: #a2465d;
-  color: #87354b;
+  background: #e2e8f0;
+  border-color: #0284c7;
+  color: #0284c7;
 }
 
 .admin-table th {
-  background: #f7ece8;
-  color: #694d52;
-  border-bottom-color: #ead5cf;
+  background: #f8fafc;
+  color: #475569;
+  border-bottom-color: #e2e8f0;
 }
 
 .admin-table td {
-  border-bottom-color: #f1e4df;
+  border-bottom-color: #f1f5f9;
 }
 
 .admin-table tr:hover td {
-  background: #fdf7f4;
+  background: #f8fafc;
 }
 
 .td-name strong,
 .td-price {
-  color: #4f3038;
+  color: #0f172a;
 }
 
 .badge-category {
-  background: #f4dfe0;
-  color: #913d55;
+  background: #e0f2fe;
+  color: #0369a1;
 }
 
 .badge-tag,
 .table-count {
-  background: #f5e7c9;
-  color: #85602d;
+  background: #fef3c7;
+  color: #92400e;
 }
 
 .empty-admin-list {
-  background: #fdf7f4;
-  border-color: #dfc9c3;
+  background: #f8fafc;
+  border-color: #cbd5e1;
 }
 
 .cart-overlay,
 .modal-backdrop {
-  background: rgba(48, 37, 40, 0.52);
+  background: rgba(15, 23, 42, 0.52);
 }
 
 .cart-panel,
 .modal-card {
-  background: #fffaf7;
+  background: #ffffff;
 }
 
 .cart-close {
-  background: #f3e5e0;
-  color: #6e4a50;
+  background: #f1f5f9;
+  color: #334155;
 }
 
 .cart-item {
-  border-color: rgba(145, 61, 85, 0.14);
-  background: #fdf4f1;
+  border-color: rgba(142, 121, 239, 0.12);
+  background: #faf7ff;
 }
 
 .cart-item strong,
 .cart-total-row strong {
-  color: #4f3038;
+  color: #231d31;
 }
 
 .cart-footer {
-  border-top-color: #eadbd5;
+  border-top-color: #e2e8f0;
 }
 
 .stock-pill {
@@ -1667,18 +1667,18 @@ img.brand-logo {
 
 .stock-pill.out,
 .badge-stock.empty {
-  background: rgba(174, 63, 77, 0.12);
-  color: #a13d4d;
+  background: rgba(239, 68, 68, 0.12);
+  color: #991b1b;
 }
 
 .admin-login-card {
-  border: 1px solid rgba(145, 61, 85, 0.16);
+  border: 1px solid rgba(142, 121, 239, 0.16);
 }
 
 .login-eyebrow {
   display: block;
   margin-bottom: 4px;
-  color: #a2465d;
+  color: #7e6bdb;
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -1687,7 +1687,7 @@ img.brand-logo {
 
 .login-description {
   margin-top: 8px;
-  color: #77686a;
+  color: #6f6479;
   font-size: 0.9rem;
 }
 
