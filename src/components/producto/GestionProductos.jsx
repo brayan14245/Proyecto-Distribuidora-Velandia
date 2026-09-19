@@ -3,6 +3,7 @@ import { FormularioProducto } from './FormularioProducto';
 import { ListaProductosAdmin } from './ListaProductosAdmin';
 import { GestionCategorias } from './GestionCategorias';
 import { crearProducto, actualizarProducto, eliminarProducto } from '../../services/productService';
+import { confirmarAccion, mostrarError, mostrarExito } from '../../services/notificationService';
 
 export function GestionProductos({ productos = [], categorias = [], onActualizarProductos, onActualizarCategorias, cargando }) {
   const [productoAEditar, setProductoAEditar] = useState(null);
@@ -14,13 +15,13 @@ export function GestionProductos({ productos = [], categorias = [], onActualizar
       // Actualizar producto existente
       actualizarProducto(productoAEditar.id, formData)
         .then(() => {
-          alert('Producto actualizado con éxito');
+          mostrarExito('Producto actualizado');
           setProductoAEditar(null);
           onActualizarProductos();
         })
         .catch((err) => {
           console.error('Error al actualizar producto:', err);
-          alert('Error al actualizar el producto');
+          mostrarError('No se pudo actualizar el producto');
         })
         .finally(() => {
           setGuardando(false);
@@ -29,12 +30,12 @@ export function GestionProductos({ productos = [], categorias = [], onActualizar
       // Crear nuevo producto
       crearProducto(formData)
         .then(() => {
-          alert('Producto creado con éxito');
+          mostrarExito('Producto creado');
           onActualizarProductos();
         })
         .catch((err) => {
           console.error('Error al crear producto:', err);
-          alert('Error al registrar el producto');
+          mostrarError('No se pudo registrar el producto');
         })
         .finally(() => {
           setGuardando(false);
@@ -51,11 +52,16 @@ export function GestionProductos({ productos = [], categorias = [], onActualizar
     setProductoAEditar(null);
   };
 
-  const handleEliminar = (id) => {
-    if (window.confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+  const handleEliminar = async (id) => {
+    const confirmado = await confirmarAccion(
+      '¿Eliminar producto?',
+      'Esta acción no se puede deshacer.'
+    );
+
+    if (confirmado) {
       eliminarProducto(id)
         .then(() => {
-          alert('Producto eliminado con éxito');
+          mostrarExito('Producto eliminado');
           if (productoAEditar && productoAEditar.id === id) {
             setProductoAEditar(null);
           }
@@ -63,7 +69,7 @@ export function GestionProductos({ productos = [], categorias = [], onActualizar
         })
         .catch((err) => {
           console.error('Error al eliminar producto:', err);
-          alert('Error al eliminar el producto');
+          mostrarError('No se pudo eliminar el producto');
         });
     }
   };

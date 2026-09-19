@@ -4,6 +4,7 @@ import {
   actualizarCategoria,
   eliminarCategoria
 } from '../../services/categoryService';
+import { confirmarAccion, mostrarAdvertencia, mostrarError, mostrarExito } from '../../services/notificationService';
 
 export function GestionCategorias({ categorias = [], onActualizarCategorias }) {
   const [nombre, setNombre] = useState('');
@@ -20,7 +21,7 @@ export function GestionCategorias({ categorias = [], onActualizarCategorias }) {
     const nombreLimpio = nombre.trim();
 
     if (!nombreLimpio || nombreLimpio.toLowerCase() === 'inicio') {
-      alert('Ingresa un nombre de categoría válido.');
+      mostrarAdvertencia('Categoría no válida', 'Ingresa un nombre de categoría válido.');
       return;
     }
 
@@ -31,14 +32,14 @@ export function GestionCategorias({ categorias = [], onActualizarCategorias }) {
 
     solicitud
       .then(() => {
-        alert(categoriaAEditar ? 'Categoría actualizada con éxito' : 'Categoría creada con éxito');
+        mostrarExito(categoriaAEditar ? 'Categoría actualizada' : 'Categoría creada');
         setNombre('');
         setCategoriaAEditar(null);
         onActualizarCategorias();
       })
       .catch((error) => {
         console.error('Error al guardar categoría:', error);
-        alert('Error al guardar la categoría');
+        mostrarError('No se pudo guardar la categoría');
       })
       .finally(() => {
         setGuardando(false);
@@ -50,12 +51,16 @@ export function GestionCategorias({ categorias = [], onActualizarCategorias }) {
     setNombre(categoria.nombre || categoria.label || '');
   };
 
-  const handleEliminar = (id) => {
-    if (!window.confirm('¿Estás seguro de que deseas eliminar esta categoría?')) return;
+  const handleEliminar = async (id) => {
+    const confirmado = await confirmarAccion(
+      '¿Eliminar categoría?',
+      'Esta acción no se puede deshacer.'
+    );
+    if (!confirmado) return;
 
     eliminarCategoria(id)
       .then(() => {
-        alert('Categoría eliminada con éxito');
+        mostrarExito('Categoría eliminada');
         if (categoriaAEditar?.id === id) {
           setCategoriaAEditar(null);
           setNombre('');
@@ -64,7 +69,7 @@ export function GestionCategorias({ categorias = [], onActualizarCategorias }) {
       })
       .catch((error) => {
         console.error('Error al eliminar categoría:', error);
-        alert('Error al eliminar la categoría');
+        mostrarError('No se pudo eliminar la categoría');
       });
   };
 

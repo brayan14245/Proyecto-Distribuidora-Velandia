@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { mostrarAdvertencia } from '../../services/notificationService';
 
 export function FormularioProducto({ productoAEditar, categorias = [], onGuardar, onCancelar, guardando }) {
   const categoriasValidas = (categorias || []).filter((categoria) => {
@@ -45,7 +46,7 @@ export function FormularioProducto({ productoAEditar, categorias = [], onGuardar
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.nombre.trim() || !formData.precio) {
-      alert('Por favor completa el nombre y el precio del producto.');
+      mostrarAdvertencia('Datos incompletos', 'Completa el nombre y el precio del producto.');
       return;
     }
 

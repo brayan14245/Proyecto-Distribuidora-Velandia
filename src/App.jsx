@@ -17,6 +17,7 @@ import { agregarAlCarrito } from './services/storeService';
 import { quitarDelCarrito } from './services/storeService';
 import { calcularTotalCarrito } from './services/storeService';
 import { descontarStockProductos } from './services/storeService';
+import { mostrarAdvertencia, mostrarError, mostrarExito } from './services/notificationService';
 
 function App() {
   const [categoriaActiva, setCategoriaActiva] = useState('Inicio');
@@ -89,7 +90,7 @@ function App() {
     const cantidadActual = yaEnCarrito ? yaEnCarrito.cantidad : 0;
 
     if (stockDisponible > 0 && cantidadActual + cantidadSolicitada > stockDisponible) {
-      alert('No hay suficiente stock para esa cantidad.');
+      mostrarAdvertencia('Stock insuficiente', 'No hay suficiente stock para esa cantidad.');
       return;
     }
 
@@ -106,12 +107,12 @@ function App() {
   const confirmarPedido = async () => {
     if (!usuarioActual) {
       setMostrarFormularioUsuario(true);
-      alert('Debes registrar un usuario antes de confirmar tu pedido.');
+      mostrarAdvertencia('Registra tus datos', 'Debes registrar un usuario antes de confirmar tu pedido.');
       return;
     }
 
     if (carrito.length === 0) {
-      alert('Tu carrito está vacío.');
+      mostrarAdvertencia('Carrito vacío', 'Agrega al menos un producto antes de confirmar tu pedido.');
       return;
     }
 
@@ -128,7 +129,7 @@ function App() {
       });
 
       if (stockInsuficiente) {
-        alert('Hay un producto del carrito sin stock suficiente en este momento.');
+        mostrarAdvertencia('Stock insuficiente', 'Hay un producto del carrito sin stock suficiente en este momento.');
         return;
       }
 
@@ -158,11 +159,14 @@ function App() {
 
       setCarrito([]);
       setMostrarCarrito(false);
-      alert(`Pedido confirmado para ${usuarioActual.nombre}. Total: $ ${totalPedido.toLocaleString('es-CO')}`);
+      mostrarExito(
+        'Pedido confirmado',
+        `Gracias, ${usuarioActual.nombre}. Total: $ ${totalPedido.toLocaleString('es-CO')}`
+      );
       await cargarProductos();
     } catch (error) {
       console.error('Error al confirmar el pedido:', error);
-      alert('No se pudo confirmar el pedido. Inténtalo de nuevo.');
+      mostrarError('No se pudo confirmar el pedido', 'Inténtalo de nuevo.');
     }
   };
 
@@ -171,10 +175,10 @@ function App() {
       const nuevoUsuario = await crearUsuarioApi(datosUsuario);
       setUsuarioActual(nuevoUsuario);
       setMostrarFormularioUsuario(false);
-      alert(`Usuario registrado correctamente: ${nuevoUsuario.nombre}`);
+      mostrarExito('Usuario registrado', `Bienvenido, ${nuevoUsuario.nombre}.`);
     } catch (error) {
       console.error('Error al registrar usuario:', error);
-      alert('No se pudo registrar el usuario. Inténtalo de nuevo.');
+      mostrarError('No se pudo registrar el usuario', 'Inténtalo de nuevo.');
     }
   };
 

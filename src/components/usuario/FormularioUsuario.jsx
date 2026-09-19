@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { mostrarAdvertencia } from '../../services/notificationService';
 
 const initialState = {
   nombre: '',
@@ -18,7 +19,7 @@ export function FormularioUsuario({ onGuardar, onCancelar }) {
     event.preventDefault();
 
     if (!formData.nombre.trim() || !formData.email.trim()) {
-      alert('Nombre y correo son obligatorios.');
+      mostrarAdvertencia('Completa los datos', 'Nombre y correo son obligatorios.');
       return;
     }
 
