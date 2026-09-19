@@ -7,6 +7,7 @@ import { Footer } from './components/Footer';
 import { GestionProductos } from './components/producto/GestionProductos';
 import { Carrito } from './components/Carrito';
 import { FormularioUsuario } from './components/usuario/FormularioUsuario';
+import { LoginAdmin } from './components/usuario/LoginAdmin';
 import { obtenerProductos, actualizarProducto } from './services/productService';
 import { obtenerCategorias } from './services/categoryService';
 import { obtenerBanners } from './services/bannerService';
@@ -26,6 +27,8 @@ function App() {
   const [carrito, setCarrito] = useState([]);
   const [mostrarCarrito, setMostrarCarrito] = useState(false);
   const [mostrarFormularioUsuario, setMostrarFormularioUsuario] = useState(false);
+  const [mostrarLoginAdmin, setMostrarLoginAdmin] = useState(false);
+  const [adminAutenticado, setAdminAutenticado] = useState(false);
   const [usuarioActual, setUsuarioActual] = useState(null);
 
   const [productos, setProductos] = useState([]);
@@ -194,6 +197,20 @@ function App() {
     }
   };
 
+  const solicitarVistaAdmin = () => {
+    if (adminAutenticado) {
+      setVista('admin');
+      return;
+    }
+
+    setMostrarLoginAdmin(true);
+  };
+
+  const cerrarSesionAdmin = () => {
+    setAdminAutenticado(false);
+    setVista('catalogo');
+  };
+
   return (
     <div className="app-layout">
       <Header
@@ -205,6 +222,9 @@ function App() {
         onCambiarVista={setVista}
         onToggleCarrito={() => setMostrarCarrito((prev) => !prev)}
         onAbrirRegistroUsuario={() => setMostrarFormularioUsuario(true)}
+        onSolicitarAdmin={solicitarVistaAdmin}
+        onCerrarAdmin={cerrarSesionAdmin}
+        adminAutenticado={adminAutenticado}
         usuarioActual={usuarioActual}
       />
 
@@ -242,7 +262,7 @@ function App() {
               )}
             </section>
           </>
-        ) : (
+        ) : adminAutenticado ? (
           <GestionProductos
             productos={productos}
             categorias={categorias}
@@ -252,7 +272,7 @@ function App() {
             onActualizarBanners={cargarBanners}
             cargando={cargando}
           />
-        )}
+        ) : null}
       </main>
 
       <Carrito
@@ -268,6 +288,18 @@ function App() {
         <FormularioUsuario
           onGuardar={handleCrearUsuario}
           onCancelar={() => setMostrarFormularioUsuario(false)}
+        />
+      )}
+
+      {mostrarLoginAdmin && (
+        <LoginAdmin
+          onAuthenticated={() => {
+            setAdminAutenticado(true);
+            setMostrarLoginAdmin(false);
+            setVista('admin');
+            mostrarExito('Acceso autorizado', 'Bienvenido al panel de administración.');
+          }}
+          onCancelar={() => setMostrarLoginAdmin(false)}
         />
       )}
 

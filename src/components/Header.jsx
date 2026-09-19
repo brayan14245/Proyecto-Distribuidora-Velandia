@@ -10,6 +10,9 @@ export function Header({
   onCambiarVista,
   onToggleCarrito,
   onAbrirRegistroUsuario,
+  onSolicitarAdmin,
+  onCerrarAdmin,
+  adminAutenticado = false,
   usuarioActual = null,
 }) {
   return (
@@ -37,9 +40,20 @@ export function Header({
             </button>
             <button
               className={`view-btn ${vista === 'admin' ? 'active' : ''}`}
-              onClick={() => onCambiarVista && onCambiarVista('admin')}
+              onClick={() => {
+                if (adminAutenticado) {
+                  if (vista === 'admin') {
+                    onCerrarAdmin && onCerrarAdmin();
+                  } else {
+                    onSolicitarAdmin && onSolicitarAdmin();
+                  }
+                  return;
+                }
+
+                onSolicitarAdmin && onSolicitarAdmin();
+              }}
             >
-              ⚙️ Productos
+              {adminAutenticado && vista === 'admin' ? '↩️ Salir admin' : '⚙️ Administración'}
             </button>
           </div>
 
