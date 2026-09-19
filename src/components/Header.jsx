@@ -60,7 +60,7 @@ export function Header({
           {vista === 'catalogo' && (
             <>
               <button className="user-button" onClick={() => onAbrirRegistroUsuario && onAbrirRegistroUsuario()}>
-                {usuarioActual ? `👤 ${usuarioActual.nombre}` : '👤 Registrar usuario'}
+                {usuarioActual ? `👤 ${usuarioActual.nombre}` : '👤 Mi cuenta'}
               </button>
 
               <button className="cart-button" onClick={() => onToggleCarrito && onToggleCarrito()}>

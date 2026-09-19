@@ -66,3 +66,13 @@ export const crearUsuario = async (usuario) => {
     return localUser;
   }
 };
+
+export const autenticarUsuario = async ({ email, contrasena }) => {
+  const usuarios = await obtenerUsuarios();
+  const emailNormalizado = email.trim().toLowerCase();
+
+  return usuarios.find((usuario) => (
+    usuario.email?.trim().toLowerCase() === emailNormalizado
+    && usuario.contrasena === contrasena
+  )) || null;
+};

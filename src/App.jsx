@@ -6,13 +6,13 @@ import { Product } from './components/Product';
 import { Footer } from './components/Footer';
 import { GestionProductos } from './components/producto/GestionProductos';
 import { Carrito } from './components/Carrito';
-import { FormularioUsuario } from './components/usuario/FormularioUsuario';
+import { CuentaUsuario } from './components/usuario/CuentaUsuario';
 import { LoginAdmin } from './components/usuario/LoginAdmin';
 import { obtenerProductos, actualizarProducto } from './services/productService';
 import { obtenerCategorias } from './services/categoryService';
 import { obtenerBanners } from './services/bannerService';
-import { obtenerUsuarios as obtenerUsuariosApi } from './services/userService';
 import { crearUsuario as crearUsuarioApi } from './services/userService';
+import { autenticarUsuario } from './services/userService';
 import { obtenerCarrito } from './services/storeService';
 import { guardarCarrito } from './services/storeService';
 import { agregarAlCarrito } from './services/storeService';
@@ -70,22 +70,10 @@ function App() {
   };
 
   useEffect(() => {
-    const cargarUsuarioActual = async () => {
-      try {
-        const usuarios = await obtenerUsuariosApi();
-        if (usuarios.length > 0) {
-          setUsuarioActual(usuarios[usuarios.length - 1]);
-        }
-      } catch (error) {
-        console.error('Error al cargar usuarios desde MockAPI:', error);
-      }
-    };
-
     cargarProductos();
     cargarCategorias();
     cargarBanners();
     setCarrito(obtenerCarrito());
-    cargarUsuarioActual();
   }, []);
 
   useEffect(() => {
@@ -197,6 +185,24 @@ function App() {
     }
   };
 
+  const handleIniciarSesion = async (credenciales) => {
+    try {
+      const usuario = await autenticarUsuario(credenciales);
+
+      if (!usuario) {
+        mostrarAdvertencia('Datos incorrectos', 'Verifica tu correo y contraseña.');
+        return;
+      }
+
+      setUsuarioActual(usuario);
+      setMostrarFormularioUsuario(false);
+      mostrarExito('Sesión iniciada', `Bienvenido, ${usuario.nombre}.`);
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      mostrarError('No se pudo iniciar sesión', 'Inténtalo de nuevo.');
+    }
+  };
+
   const solicitarVistaAdmin = () => {
     if (adminAutenticado) {
       setVista('admin');
@@ -285,8 +291,9 @@ function App() {
       />
 
       {mostrarFormularioUsuario && (
-        <FormularioUsuario
-          onGuardar={handleCrearUsuario}
+        <CuentaUsuario
+          onCrearUsuario={handleCrearUsuario}
+          onIniciarSesion={handleIniciarSesion}
           onCancelar={() => setMostrarFormularioUsuario(false)}
         />
       )}
