@@ -13,7 +13,7 @@ const accesoInicial = {
   contrasena: '',
 };
 
-export function CuentaUsuario({ onCrearUsuario, onIniciarSesion, onCancelar }) {
+export function CuentaUsuario({ usuarioActual = null, onCrearUsuario, onIniciarSesion, onCerrarSesion, onCancelar }) {
   const [modo, setModo] = useState('iniciar');
   const [registro, setRegistro] = useState(registroInicial);
   const [acceso, setAcceso] = useState(accesoInicial);
@@ -61,29 +61,44 @@ export function CuentaUsuario({ onCrearUsuario, onIniciarSesion, onCancelar }) {
         <div className="modal-header">
           <div>
             <span className="login-eyebrow">Tu cuenta</span>
-            <h3>{modo === 'iniciar' ? 'Iniciar sesión' : 'Crear usuario'}</h3>
+            <h3>{usuarioActual ? 'Sesión activa' : modo === 'iniciar' ? 'Iniciar sesión' : 'Crear usuario'}</h3>
           </div>
           <button type="button" className="cart-close" onClick={onCancelar}>✕</button>
         </div>
 
-        <div className="account-tabs" role="tablist" aria-label="Opciones de cuenta">
-          <button
-            type="button"
-            className={`account-tab ${modo === 'iniciar' ? 'active' : ''}`}
-            onClick={() => setModo('iniciar')}
-          >
-            Iniciar sesión
-          </button>
-          <button
-            type="button"
-            className={`account-tab ${modo === 'crear' ? 'active' : ''}`}
-            onClick={() => setModo('crear')}
-          >
-            Crear usuario
-          </button>
-        </div>
+        {usuarioActual ? (
+          <div className="account-session">
+            <div className="account-session-avatar">👤</div>
+            <p className="account-session-label">Has iniciado sesión como</p>
+            <h4>{usuarioActual.nombre}</h4>
+            <p className="account-session-email">{usuarioActual.email}</p>
+            <div className="form-actions">
+              <button type="button" className="btn-action-delete" onClick={onCerrarSesion}>
+                Cerrar sesión
+              </button>
+              <button type="button" className="btn-cancel" onClick={onCancelar}>Cerrar</button>
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="account-tabs" role="tablist" aria-label="Opciones de cuenta">
+              <button
+                type="button"
+                className={`account-tab ${modo === 'iniciar' ? 'active' : ''}`}
+                onClick={() => setModo('iniciar')}
+              >
+                Iniciar sesión
+              </button>
+              <button
+                type="button"
+                className={`account-tab ${modo === 'crear' ? 'active' : ''}`}
+                onClick={() => setModo('crear')}
+              >
+                Crear usuario
+              </button>
+            </div>
 
-        {modo === 'iniciar' ? (
+            {modo === 'iniciar' ? (
           <form onSubmit={handleAccesoSubmit} className="user-form">
             <p className="login-description">Accede para confirmar tus pedidos con tus datos guardados.</p>
 
@@ -120,7 +135,7 @@ export function CuentaUsuario({ onCrearUsuario, onIniciarSesion, onCancelar }) {
               <button type="button" className="btn-cancel" onClick={onCancelar}>Cancelar</button>
             </div>
           </form>
-        ) : (
+            ) : (
           <form onSubmit={handleRegistroSubmit} className="user-form">
             <p className="login-description">Crea tu cuenta para guardar tus datos y confirmar pedidos.</p>
 
@@ -186,6 +201,8 @@ export function CuentaUsuario({ onCrearUsuario, onIniciarSesion, onCancelar }) {
               <button type="button" className="btn-cancel" onClick={onCancelar}>Cancelar</button>
             </div>
           </form>
+            )}
+          </>
         )}
       </div>
     </div>

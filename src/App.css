@@ -1719,4 +1719,42 @@ img.brand-logo {
   box-shadow: var(--shadow-sm);
 }
 
+.account-session {
+  padding-top: 24px;
+  text-align: center;
+}
+
+.account-session-avatar {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 12px;
+  background: linear-gradient(135deg, #8e79ef 0%, #6fd3d0 100%);
+  border-radius: 50%;
+  font-size: 1.5rem;
+}
+
+.account-session-label {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.account-session h4 {
+  margin-top: 4px;
+  color: #231d31;
+  font-size: 1.2rem;
+}
+
+.account-session-email {
+  margin-top: 2px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.account-session .form-actions {
+  justify-content: center;
+  margin-top: 22px;
+}
+
 

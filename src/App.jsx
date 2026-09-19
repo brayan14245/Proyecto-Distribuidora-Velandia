@@ -292,8 +292,14 @@ function App() {
 
       {mostrarFormularioUsuario && (
         <CuentaUsuario
+          usuarioActual={usuarioActual}
           onCrearUsuario={handleCrearUsuario}
           onIniciarSesion={handleIniciarSesion}
+          onCerrarSesion={() => {
+            setUsuarioActual(null);
+            setMostrarFormularioUsuario(false);
+            mostrarExito('Sesión cerrada', 'Has cerrado tu sesión correctamente.');
+          }}
           onCancelar={() => setMostrarFormularioUsuario(false)}
         />
       )}
