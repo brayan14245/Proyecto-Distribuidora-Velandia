@@ -4,4 +4,5 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/Proyecto-Distribuidora-Velandia/', // Set the base path for your app
 })
