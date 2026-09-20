@@ -5,6 +5,8 @@ import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <browser-router basename ="/{import.meta.env.BASE_URL}/">
     <App />
+    </browser-router>
   </StrictMode>,
 )
